@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AttendanceBarcodeReaderServer</string>
+    <string name="DBHandler">DBHandler</string>
+</resources>
