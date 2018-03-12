@@ -23,13 +23,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(dbQueries.getSQL_CREATE_ENTRIES());
         Log.d(TAG, "SQL Database Created");
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(dbQueries.getSQL_DELETE_ENTRIES());
         onCreate(db);
     }
-
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);

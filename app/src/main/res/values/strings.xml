@@ -2,4 +2,5 @@
     <string name="app_name">AttendanceBarcodeReaderServer</string>
     <string name="DBHandler">DBHandler</string>
     <string name="DATABASE_NAME">Attendance.db</string>
+    <integer name="PORT">1234</integer>
 </resources>
