@@ -21,8 +21,13 @@
         android:id="@+id/importBtn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:onClick="importDbBtn"
         android:text="Import"
+        android:visibility="visible" />
+    <Button
+        android:id="@+id/takeAttendenceBtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Take Attendence"
         android:visibility="visible" />
 
 </LinearLayout>

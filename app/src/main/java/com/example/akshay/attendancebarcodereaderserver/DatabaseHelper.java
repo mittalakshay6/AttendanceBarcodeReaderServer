@@ -23,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(dbQueries.getSQL_CREATE_ENTRIES());
         Log.d(TAG, "SQL Database Created");
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(dbQueries.getSQL_DELETE_ENTRIES());
@@ -31,5 +32,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
+    }
+
+    public void createCol(SQLiteDatabase db){
+        db.execSQL(dbQueries.getSQL_CREATE_TODAY_COL());
+        Log.d(TAG,"New column for today created");
+    }
+
+    public void mark_P(SQLiteDatabase db){
+        db.execSQL(dbQueries.getSQL_MARK_P());
+        Log.d(TAG,"Attendence for current student marked");
     }
 }
