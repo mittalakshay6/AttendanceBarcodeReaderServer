@@ -2,8 +2,8 @@ package com.example.akshay.attendancebarcodereaderserver;
 
 import android.util.Log;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class DatabaseQueries {
 
@@ -11,20 +11,9 @@ public class DatabaseQueries {
 
     private String tableName;
     private boolean isTableNameSet=false;
+    private String REG_NO;
+    private String COL_DATE;
 
-
-    //get today's date for column name
-
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/mm/dd");
-    LocalDate COL_DATE = LocalDate.now();
-
-
-    //get reg number of current student connection
-
-    Connection connection;
-    String REG_NO = connection.getRegNo();
-
-    
     //Queries
 
     private final String SQL_CREATE_ENTRIES =
@@ -46,6 +35,23 @@ public class DatabaseQueries {
         this.tableName = tableName;
         isTableNameSet=true;
     }
+
+    private String getDate(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/mm/dd");
+        String date = simpleDateFormat.format(calendar.getTime());
+        return date;
+    }
+
+    public void setCOL_DATE(){
+        COL_DATE=getDate();
+    }
+
+    public boolean setREG_NO(String REG_NO) {
+        this.REG_NO = REG_NO;
+        return true;
+    }
+
     public boolean isTableNameSet() {
         return isTableNameSet;
     }
@@ -80,12 +86,12 @@ public class DatabaseQueries {
         }
     }
 
-    public String getSQL_MARK_P() {
-        if(isTableNameSet()) {
+    public String getSQL_MARK_P(String regNum) {
+        if(isTableNameSet() && setREG_NO(regNum)) {
             return SQL_MARK_P;
         }
         else{
-            Log.e(TAG, "Attendence not marked");
+            Log.e(TAG, "Attendance not marked");
             return null;
         }
     }
