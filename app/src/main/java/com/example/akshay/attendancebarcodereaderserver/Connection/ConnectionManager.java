@@ -13,12 +13,13 @@ public class ConnectionManager {
     private boolean doAccept;
     private ServerSocket serverSocket;
     private ArrayList<Socket> sockets;
+    private static final int PORT = 1234;
 
     private final String TAG = "ConnectionManager";
 
     public boolean createServerSocket() {
         try {
-            serverSocket = new ServerSocket(R.integer.PORT);
+            serverSocket = new ServerSocket(PORT);
             Log.d(TAG, "Server Socket creation successful");
             return true;
         } catch (IOException e) {
