@@ -7,7 +7,9 @@
     <string name="exportBtn">Export Database</string>
     <string name="takeAttendanceBtn">Take Attendance</string>
     <string name="aboutUsBtn">About Us</string>
-    <integer name="PORT">1234</integer>
+    <string name="pathView">Set path of .xls file</string>
+    <string name="browseBtn">Browse...</string>
+
     <string-array name="selectbatch">
         <item>CSA3Yr</item>
         <item>IT3Yr</item>

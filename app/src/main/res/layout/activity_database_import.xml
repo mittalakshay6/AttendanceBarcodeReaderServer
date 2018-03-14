@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="200dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
     tools:context=".DatabaseImportActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/pathView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pathView"
+        android:layout_toStartOf="@id/browseBtn"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/browseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/pathView"
+        android:layout_alignParentEnd="true"
+        android:onClick="onClickBrowseBtn"
+        android:text="@string/browseBtn" />
+
+    <Button
+        android:id="@+id/importBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/browseBtn"
+        android:layout_centerHorizontal="true"
+        android:text="@string/importBtn"
+        android:onClick="onClickImportDatabaseBtn"
+        android:visibility="visible" />
+</RelativeLayout>
