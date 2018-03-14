@@ -12,7 +12,7 @@ public class DatabaseQueries {
     private String tableName;
     private boolean isTableNameSet=false;
     private String REG_NO;
-    private String COL_DATE;
+    private String COL_DATE="d";
 
     //Queries
 
@@ -28,10 +28,10 @@ public class DatabaseQueries {
 
     private final String SQL_CREATE_TODAY_COL =
             "ALTER TABLE " + this.tableName + " ADD COLUMN " + COL_DATE +
-                    " TEXT NOT NULL DEFAULT(A)";
+                    " TEXT NOT NULL DEFAULT A";
 
     private final String SQL_MARK_P =
-            "UPDATE " + this.tableName + " SET " + COL_DATE + " = 'p' " +
+            "UPDATE " + this.tableName + " SET " + COL_DATE + " = 'P' " +
                     "WHERE " + DatabaseContract.DatabaseEntry.COL_REGNO + " == " + REG_NO;
 
     public void setTableName(String tableName) {
@@ -41,13 +41,14 @@ public class DatabaseQueries {
 
     private String getDate(){
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/mm/dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
         String date = simpleDateFormat.format(calendar.getTime());
         return date;
     }
 
     public void setCOL_DATE(){
-        COL_DATE=getDate();
+        String tempDate = getDate();
+        COL_DATE = COL_DATE + tempDate;
     }
 
     public boolean setREG_NO(String REG_NO) {

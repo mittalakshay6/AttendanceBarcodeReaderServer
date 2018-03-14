@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AttendanceActivity" />
+        <activity android:name=".StartAttendanceActivity" />
         <activity android:name=".DatabaseImportActivity" />
         <activity android:name=".DatabaseExportActivity" />
     </application>
