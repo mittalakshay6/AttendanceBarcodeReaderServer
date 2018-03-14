@@ -4,19 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:visibility="visible"
     tools:context="com.example.akshay.attendancebarcodereaderserver.AttendanceActivity">
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="440dp"
-        android:id="@+id/regNoList"/>
-    <Button
-        android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Stop Taking Attendence"
+
+    <Spinner
+        android:id="@+id/selectbatch_spinner"
+        android:layout_width="300dp"
+        android:layout_height="49dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/colorPrimaryDark" />
+        android:layout_marginTop="50dp"
+        android:background="@color/colorBg"
+        android:entries="@array/selectbatch" />
+
+    <Button
+        android:id="@+id/starttakeAttendanceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"
+        android:text="Start Taking Attendance"
+        android:onClick="onClickStartTakeAttendance"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_orange_dark" />
 
 
 </RelativeLayout>
