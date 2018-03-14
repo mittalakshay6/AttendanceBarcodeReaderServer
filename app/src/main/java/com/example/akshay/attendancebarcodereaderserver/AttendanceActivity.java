@@ -1,23 +1,30 @@
 package com.example.akshay.attendancebarcodereaderserver;
 
-import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 public class AttendanceActivity extends AppCompatActivity {
-
-    Button starttakeAttendanceBtn;
+    private ListView lv;
+    private ArrayList<String> regNoData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
 
-        starttakeAttendanceBtn = findViewById(R.id.starttakeAttendanceBtn);
+//        starttakeAttendanceBtn = findViewById(R.id.starttakeAttendanceBtn);
        /* Spinner selectbatch_spinner = findViewById(R.id.selectbatch_spinner);
         ArrayAdapter<CharSequence> selectbatch_adapter =ArrayAdapter.createFromResource(this,
                 R.array.selectbatch,android.R.layout.simple_spinner_item);
@@ -25,11 +32,27 @@ public class AttendanceActivity extends AppCompatActivity {
         selectbatch_spinner.setAdapter(selectbatch_adapter);
     */
 
-    }
-    public void onClickStartTakeAttendance(View view){
-        Intent intent = new Intent(this, StartAttendanceActivity.class);
-        startActivity(intent);
-    }
+        regNoData = new ArrayList<String>();
+        for(int i=0;i<100;i++) {
+            regNoData.add("20158012");
+            //   regNoData.add("20158040");
+           // regNoData.add("20158026");
+        }
 
+        lv.setAdapter(new ArrayAdapter<String>(this, 0,regNoData){
 
+            private View row;
+            private LayoutInflater inflater = getLayoutInflater();
+            private TextView tv;
+
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                row = inflater.inflate(android.R.layout.simple_list_item_1,parent,false);
+                tv = row.findViewById(android.R.id.text1);
+                tv.setText(regNoData.get(position));
+                return row;
+            }
+        });
+    }
 }
