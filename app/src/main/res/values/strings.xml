@@ -1,6 +1,16 @@
 <resources>
-    <string name="app_name">AttendanceBarcodeReaderServer</string>
+    <string name="app_name">MarkIT</string>
     <string name="DBHandler">DBHandler</string>
     <string name="DATABASE_NAME">Attendance.db</string>
+    <string name="TakeAttendanceBtn">Start Taking Attendence</string>
     <integer name="PORT">1234</integer>
+    <string-array name="selectbatch">
+        <item>CSA3Yr</item>
+        <item>IT3Yr</item>
+        <item>CSB3Yr</item>
+        <item>CSA2Yr</item>
+
+    </string-array>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

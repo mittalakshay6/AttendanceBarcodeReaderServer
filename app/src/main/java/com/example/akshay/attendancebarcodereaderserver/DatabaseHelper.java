@@ -40,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void mark_P(SQLiteDatabase db){
-        db.execSQL(dbQueries.getSQL_MARK_P());
+        //db.execSQL(dbQueries.getSQL_MARK_P());
         Log.d(TAG,"Attendence for current student marked");
     }
 }
