@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ajts.androidmads.library.ExcelToSQLite;
 
@@ -33,7 +34,8 @@ public class DatabaseImporter {
     public void importDatabase(String path){
         file = new File(path);
         if(!file.exists() && !file.canRead()){
-            Log.e(TAG, "File not exists, or cannot read file");
+            Toast toast = Toast.makeText(context, "File not exists, or cannot read file", Toast.LENGTH_LONG);
+            toast.show();
             return;
         }
         else{
@@ -56,17 +58,18 @@ public class DatabaseImporter {
             excelToSQLite.importFromFile(file.getPath(), new ExcelToSQLite.ImportListener() {
                 @Override
                 public void onStart() {
+                    Toast.makeText(context, "Database import started", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onCompleted(String dbName) {
-                    Log.d(TAG, "Database import successful");
+                    Toast.makeText(context, "Database imported successfully", Toast.LENGTH_SHORT).show();
                     isImported=true;
                 }
 
                 @Override
                 public void onError(Exception e) {
-                    Log.e(TAG, "Database Import Failed "+ e.getMessage());
+                    Toast.makeText(context, "Database import failed", Toast.LENGTH_SHORT).show();
                 }
             });
 

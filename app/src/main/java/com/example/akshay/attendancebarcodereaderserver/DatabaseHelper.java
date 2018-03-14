@@ -15,18 +15,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context, String tableName) {
         super(context, String.valueOf(R.string.DATABASE_NAME), null, DATABASE_VERSION);
-        dbQueries = new DatabaseQueries();
-        dbQueries.setTableName(tableName);
+        dbQueries = new DatabaseQueries(tableName);
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(dbQueries.getSQL_CREATE_ENTRIES());
+        db.execSQL(dbQueries.getSQL_CREATE_ENTRIES(dbQueries.getTableName()));
         Log.d(TAG, "SQL Database Created");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(dbQueries.getSQL_DELETE_ENTRIES());
+        db.execSQL(dbQueries.getSQL_DELETE_ENTRIES(dbQueries.getTableName()));
         onCreate(db);
     }
     @Override
@@ -39,7 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d(TAG,"All table names returned");
     }
     public void createCol(SQLiteDatabase db){
-        db.execSQL(dbQueries.getSQL_CREATE_TODAY_COL());
+        db.execSQL(dbQueries.getSQL_CREATE_TODAY_COL(dbQueries.getTableName()));
         Log.d(TAG,"New column for today created");
     }
 

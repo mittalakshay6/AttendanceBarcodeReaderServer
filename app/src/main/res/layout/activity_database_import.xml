@@ -25,13 +25,31 @@
         android:onClick="onClickBrowseBtn"
         android:text="@string/browseBtn" />
 
+    <EditText
+        android:id="@+id/tableNameView"
+        android:hint="@string/tableNameView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/browseBtn"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"/>
+
     <Button
         android:id="@+id/importBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/browseBtn"
+        android:layout_below="@id/tableNameView"
         android:layout_centerHorizontal="true"
         android:text="@string/importBtn"
-        android:onClick="onClickImportDatabaseBtn"
-        android:visibility="visible" />
+        android:onClick="onClickImportDatabaseBtn" />
+
+    <Button
+        android:id="@+id/doneBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/importBtn"
+        android:layout_centerHorizontal="true"
+        android:text="@string/doneBtn"
+        android:onClick="onClickDoneBtn"/>
+
 </RelativeLayout>

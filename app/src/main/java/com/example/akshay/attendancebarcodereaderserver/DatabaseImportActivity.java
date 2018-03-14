@@ -16,7 +16,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.net.URI;
@@ -26,6 +28,8 @@ public class DatabaseImportActivity extends AppCompatActivity {
     private TextView pathView;
     private Button browseBtn;
     private Button importDatabaseBtn;
+    private EditText tableNameView;
+    private Button doneBtn;
     private static final int READ_REQUEST_CODE = 42;
     private final String TAG = "DatabaseImportActivity";
 
@@ -37,8 +41,15 @@ public class DatabaseImportActivity extends AppCompatActivity {
         pathView = findViewById(R.id.pathView);
         browseBtn = findViewById(R.id.browseBtn);
         importDatabaseBtn = findViewById(R.id.importBtn);
+        tableNameView = findViewById(R.id.tableNameView);
+        doneBtn = findViewById(R.id.doneBtn);
 
         importDatabaseBtn.setVisibility(View.INVISIBLE);
+        tableNameView.setVisibility(View.INVISIBLE);
+    }
+
+    public void onClickDoneBtn(View view){
+        finish();
     }
 
     public void onClickBrowseBtn(View view){
@@ -46,12 +57,21 @@ public class DatabaseImportActivity extends AppCompatActivity {
     }
 
     public void onClickImportDatabaseBtn(View View){
+        String tableName = tableNameView.getText().toString();
+        if(tableName.isEmpty()){
+            Toast toast = Toast.makeText(this, "Enter a valid Table name", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else{
+            DatabaseHelper databaseHelper = new DatabaseHelper(this, tableName);
+            DatabaseImporter databaseImporter = new DatabaseImporter(databaseHelper, this);
+            databaseImporter.importDatabase(pathView.getText().toString());
+        }
     }
 
     public void performFileSearch() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-
         intent.setType("*/*");
         startActivityForResult(intent, READ_REQUEST_CODE);
     }
@@ -63,27 +83,22 @@ public class DatabaseImportActivity extends AppCompatActivity {
             if(data!=null){
                 uri = data.getData();
                 assert uri != null;
-                Log.i(TAG, "Uri: "+getPath(this, uri));
-                File file = new File("file:///"+uri);
-                if(file.exists()){
-                    Log.d(TAG, "YES");
+                String path = getPath(this, uri);
+                pathView.setText(path);
+                String extension = path.substring(path.lastIndexOf("."));
+                Log.d(TAG, extension);
+
+                // TODO: Check if .xlsx files can be imported or not
+
+                if(extension.equals(".xls") || extension.equals(".xlsx")){
+                    tableNameView.setVisibility(View.VISIBLE);
+                    importDatabaseBtn.setVisibility(View.VISIBLE);
                 }
-                Cursor cursor = this.getContentResolver().query(uri, null, null, null, null, null);
-                try {
-                    if (cursor != null && cursor.moveToFirst()) {
-                        String displayName = cursor.getString(5);
-                        Log.i(TAG, "Display Name: " + displayName);
-//                        int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
-//                        String size = null;
-//                        if (!cursor.isNull(sizeIndex)) {
-//                            size = cursor.getString(sizeIndex);
-//                        } else {
-//                            size = "Unknown";
-//                        }
-//                        Log.i(TAG, "Size: " + size);
-                    }
-                } finally {
-                    cursor.close();
+                else{
+                    tableNameView.setVisibility(View.INVISIBLE);
+                    importDatabaseBtn.setVisibility(View.INVISIBLE);
+                    Toast toast = Toast.makeText(this, "Wrong file type selected", Toast.LENGTH_SHORT);
+                    toast.show();
                 }
             }
         }
@@ -149,7 +164,6 @@ public class DatabaseImportActivity extends AppCompatActivity {
 
         return null;
     }
-
     /**
      * Get the value of the data column for this Uri. This is useful for
      * MediaStore Uris, and other file-based ContentProviders.
@@ -182,8 +196,6 @@ public class DatabaseImportActivity extends AppCompatActivity {
         }
         return null;
     }
-
-
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is ExternalStorageProvider.
@@ -191,7 +203,6 @@ public class DatabaseImportActivity extends AppCompatActivity {
     public static boolean isExternalStorageDocument(Uri uri) {
         return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
-
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is DownloadsProvider.
@@ -199,7 +210,6 @@ public class DatabaseImportActivity extends AppCompatActivity {
     public static boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
-
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is MediaProvider.
@@ -207,6 +217,5 @@ public class DatabaseImportActivity extends AppCompatActivity {
     public static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
-
 }
 
