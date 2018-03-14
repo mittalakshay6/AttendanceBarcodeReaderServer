@@ -23,6 +23,9 @@ public class DatabaseQueries {
     private final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + this.tableName;
 
+    private final String SQL_RETURN_ALL_TABLES =
+            "SELECT name FROM sqlite_master WHERE type='table'";
+
     private final String SQL_CREATE_TODAY_COL =
             "ALTER TABLE " + this.tableName + " ADD COLUMN " + COL_DATE +
                     " TEXT NOT NULL DEFAULT(A)";
@@ -74,6 +77,10 @@ public class DatabaseQueries {
             Log.e(TAG, "Table name not set");
             return null;
         }
+    }
+
+    public String getSQL_RETURN_ALL_TABLES() {
+        return  SQL_RETURN_ALL_TABLES;
     }
 
     public String getSQL_CREATE_TODAY_COL() {

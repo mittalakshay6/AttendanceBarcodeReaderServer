@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AttendanceActivity">
+    tools:context="com.example.akshay.attendancebarcodereaderserver.AttendanceActivity">
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="440dp"
+        android:id="@+id/regNoList"/>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Stop Taking Attendence"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/colorPrimaryDark" />
 
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

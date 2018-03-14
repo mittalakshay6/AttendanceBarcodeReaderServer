@@ -34,6 +34,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
+    public void all_tables(SQLiteDatabase db){
+        db.execSQL(dbQueries.getSQL_RETURN_ALL_TABLES());
+        Log.d(TAG,"All table names returned");
+    }
     public void createCol(SQLiteDatabase db){
         db.execSQL(dbQueries.getSQL_CREATE_TODAY_COL());
         Log.d(TAG,"New column for today created");
