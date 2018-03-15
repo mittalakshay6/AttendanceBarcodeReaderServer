@@ -21,8 +21,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(dbQueries.getSQL_CREATE_ENTRIES(dbQueries.getTableName()));
-        Log.d(TAG, "SQL Database Created");
+        if(dbQueries.getTableName()!="sqlite_master") {
+            db.execSQL(dbQueries.getSQL_CREATE_ENTRIES(dbQueries.getTableName()));
+            Log.d(TAG, "SQL Database Created");
+        }
     }
 
     @Override
