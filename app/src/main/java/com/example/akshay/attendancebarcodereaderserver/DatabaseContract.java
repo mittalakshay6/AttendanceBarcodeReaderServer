@@ -6,6 +6,6 @@ public class DatabaseContract {
     private DatabaseContract(){
     }
     public static class DatabaseEntry implements BaseColumns{
-        public static final String COL_REGNO="RegistrationNumber";
+        public static final String COL_REGNO="RegNum";
     }
 }

@@ -28,7 +28,7 @@ public class DatabaseQueries {
     //Queries
 
     public String getSQL_CREATE_ENTRIES(String tableName) {
-        return "CREATE TABLE IF N " + tableName + " (" +
+        return "CREATE TABLE " + tableName + " (" +
                 DatabaseContract.DatabaseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 DatabaseContract.DatabaseEntry.COL_REGNO + " INTEGER)";
     }

@@ -7,13 +7,38 @@
     android:orientation="vertical"
     android:visibility="visible"
     tools:context="com.example.akshay.attendancebarcodereaderserver.AttendanceActivity">
+    <ListView
+        android:id="@+id/cursor_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </ListView>
+
+    <TextView
+        android:id="@+id/note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Select Database:"
+        android:textSize="20sp"
+        android:textStyle="bold|italic" />
 
     <Spinner
-        android:id="@+id/selectTableNameSpinner"
+        android:layout_below="@+id/note"
+        android:id="@+id/selectDatabaseNameSpinner"
         android:layout_width="300dp"
         android:layout_height="49dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
+    <Spinner
+        android:layout_below="@+id/selectDatabaseNameSpinner"
+        android:id="@+id/selectTableSpinner"
+        android:layout_width="300dp"
+        android:layout_height="49dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+    <TextView
+        android:id="@+id/spinner_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/startBtn"
