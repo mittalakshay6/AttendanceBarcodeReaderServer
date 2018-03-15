@@ -31,8 +31,6 @@ public class AttendanceActivity extends AppCompatActivity implements AdapterView
     public static final String INTENT_DBNAME="selected_database_name";
     public static final String INTENT_TABLENAME="selected_table_name";
 
-    //TODO: Create provision to remove databases also.
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
