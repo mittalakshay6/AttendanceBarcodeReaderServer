@@ -47,13 +47,6 @@ public class StartAttendanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startattendance);
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            ActivityCompat.requestPermissions(StartAttendanceActivity.this,
-                    new String[]{Manifest.permission.INTERNET},
-                    1);
-        }
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_NETWORK_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission is not granted

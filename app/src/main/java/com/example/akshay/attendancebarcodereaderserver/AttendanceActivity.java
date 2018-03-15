@@ -1,9 +1,13 @@
 package com.example.akshay.attendancebarcodereaderserver;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +40,14 @@ public class AttendanceActivity extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            ActivityCompat.requestPermissions(AttendanceActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    3);
+        }
 
         spinner_databaseName = findViewById(R.id.selectDatabaseNameSpinner);
         spinner_tableName = findViewById(R.id.selectTableSpinner);

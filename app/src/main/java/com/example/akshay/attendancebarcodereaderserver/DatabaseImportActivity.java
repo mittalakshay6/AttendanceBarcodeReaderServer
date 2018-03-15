@@ -1,9 +1,11 @@
 package com.example.akshay.attendancebarcodereaderserver;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -11,6 +13,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +37,14 @@ public class DatabaseImportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_import);
+
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET)
+                != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            ActivityCompat.requestPermissions(DatabaseImportActivity.this,
+                    new String[]{Manifest.permission.INTERNET},
+                    1);
+        }
 
         pathView = findViewById(R.id.pathView);
         browseBtn = findViewById(R.id.browseBtn);
