@@ -34,29 +34,35 @@ public class AttendanceActivity extends AppCompatActivity implements AdapterView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_attendance);
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_attendance);
 
-        spinner_databaseName = findViewById(R.id.selectDatabaseNameSpinner);
-        spinner_tableName = findViewById(R.id.selectTableSpinner);
-        databaseQueries = DatabaseQueries.getInstance();
-        note2 = findViewById(R.id.note2);
-        startBtn = findViewById(R.id.startBtn);
+            spinner_databaseName = findViewById(R.id.selectDatabaseNameSpinner);
+            spinner_tableName = findViewById(R.id.selectTableSpinner);
+            databaseQueries = DatabaseQueries.getInstance();
+            note2 = findViewById(R.id.note2);
+            startBtn = findViewById(R.id.startBtn);
+            try {
+                String dir = null;
+                dir = this.getDatabasePath("a").getParent();
+                File file = new File(dir);
+                File[] files = file.listFiles();
+                ArrayList<CharSequence> fileArrayList = new ArrayList<>();
+                ArrayAdapter<CharSequence> fileArrayAdapter;
+                for (int i = 0; i < files.length; i++) {
+                    if (files[i].getName().endsWith("db")) {
+                        fileArrayList.add(files[i].getName());
+                    }
+                }
 
-        String dir = null;
-        dir = this.getDatabasePath("a").getParent();
-        File file = new File(dir);
-        File[] files = file.listFiles();
-        ArrayList<CharSequence> fileArrayList = new ArrayList<>();
-        ArrayAdapter<CharSequence> fileArrayAdapter;
-        for (int i = 0; i < files.length; i++) {
-            if (files[i].getName().endsWith("db")) {
-                fileArrayList.add(files[i].getName());
+
+                fileArrayAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_text_layout, fileArrayList);
+                spinner_databaseName.setAdapter(fileArrayAdapter);
+                spinner_databaseName.setOnItemSelectedListener(this);
             }
-        }
-        fileArrayAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_text_layout, fileArrayList);
-        spinner_databaseName.setAdapter(fileArrayAdapter);
-        spinner_databaseName.setOnItemSelectedListener(this);
+            catch(NullPointerException e){
+                    e.printStackTrace();
+            }
     }
 
     public void onClickStartBtn(View View){
