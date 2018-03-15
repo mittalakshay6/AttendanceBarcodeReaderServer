@@ -10,7 +10,6 @@ public class DatabaseQueries {
     private static DatabaseQueries databaseQueries;
     private String tableName;
     private boolean isTableNameSet=false;
-    private String COL_DATE="d";
 
     private DatabaseQueries(){
     }
@@ -41,6 +40,7 @@ public class DatabaseQueries {
     }
 
     public String getSQL_CREATE_TODAY_COL(String tableName) {
+        String COL_DATE = getDate();
         return "ALTER TABLE " + tableName + " ADD COLUMN " + COL_DATE +
                 " TEXT NOT NULL DEFAULT A";
     }
@@ -64,7 +64,7 @@ public class DatabaseQueries {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
         String date = simpleDateFormat.format(calendar.getTime());
-        return date;
+        return "d"+date;
     }
 
     public boolean isTableNameSet() {

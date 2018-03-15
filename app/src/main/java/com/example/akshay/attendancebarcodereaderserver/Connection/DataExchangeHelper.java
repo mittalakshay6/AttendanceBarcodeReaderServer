@@ -13,6 +13,7 @@ public class DataExchangeHelper {
     private Socket socket;
     private boolean isDataSent=false;
     private String receivedData;
+    private String dataToBeSent;
     private boolean isDataReceived=false;
 
     private static final String TAG = "DataExchangeHelper";
@@ -28,6 +29,14 @@ public class DataExchangeHelper {
     public void receiveData(){
         this.isDataReceived=false;
         new DataReceiver().execute();
+    }
+
+    public void setDataToBeSent(String dataToBeSent) {
+        this.dataToBeSent = dataToBeSent;
+    }
+
+    public String getReceivedData() {
+        return receivedData;
     }
 
     public boolean isDataSent(){
@@ -70,7 +79,8 @@ public class DataExchangeHelper {
             try {
                 dataInputStream = new DataInputStream(socket.getInputStream());
                 receivedData = dataInputStream.readUTF();
-                Log.d(TAG, "Data Received successfully");
+                Log.d(TAG, "Data Received successfully: " + receivedData);
+                sendData("S");
                 return true;
             } catch (IOException e) {
                 Log.e(TAG, e.getMessage());
