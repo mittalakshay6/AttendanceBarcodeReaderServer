@@ -26,8 +26,8 @@
         android:text="@string/browseBtn" />
 
     <EditText
-        android:id="@+id/tableNameView"
-        android:hint="@string/tableNameView"
+        android:id="@+id/databaseNameView"
+        android:hint="@string/databaseNameView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/browseBtn"
@@ -38,7 +38,7 @@
         android:id="@+id/importBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tableNameView"
+        android:layout_below="@id/databaseNameView"
         android:layout_centerHorizontal="true"
         android:text="@string/importBtn"
         android:onClick="onClickImportDatabaseBtn" />

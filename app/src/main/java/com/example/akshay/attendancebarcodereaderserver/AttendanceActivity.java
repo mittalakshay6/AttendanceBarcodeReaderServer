@@ -1,58 +1,64 @@
 package com.example.akshay.attendancebarcodereaderserver;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import com.example.akshay.attendancebarcodereaderserver.R;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.CursorAdapter;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
-
-import static java.lang.Thread.sleep;
+import java.util.List;
 
 public class AttendanceActivity extends AppCompatActivity {
-    private ListView lv;
-    private ArrayList<String> regNoData;
+
+    private Button startBtn;
+    private Spinner batchSelectSpinner;
+    private DatabaseHelper databaseHelper;
+    private SQLiteDatabase sqLiteDatabase;
+    private DatabaseQueries databaseQueries;
+
+    private final String TAG = "AttendanceActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
 
-//        starttakeAttendanceBtn = findViewById(R.id.starttakeAttendanceBtn);
-       /* Spinner selectbatch_spinner = findViewById(R.id.selectbatch_spinner);
-        ArrayAdapter<CharSequence> selectbatch_adapter =ArrayAdapter.createFromResource(this,
-                R.array.selectbatch,android.R.layout.simple_spinner_item);
-        selectbatch_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        selectbatch_spinner.setAdapter(selectbatch_adapter);
-    */
+        databaseQueries=DatabaseQueries.getInstance();
+        startBtn = findViewById(R.id.startBtn);
+        batchSelectSpinner = findViewById(R.id.selectTableNameSpinner);
+//        databaseHelper = new DatabaseHelper(this);
+        List tableNames = null;
 
-        regNoData = new ArrayList<String>();
-        for(int i=0;i<100;i++) {
-            regNoData.add("20158012");
-            //   regNoData.add("20158040");
-           // regNoData.add("20158026");
-        }
+        new ReadableDatabaseGet().execute(databaseHelper);
 
-        lv.setAdapter(new ArrayAdapter<String>(this, 0,regNoData){
-
-            private View row;
-            private LayoutInflater inflater = getLayoutInflater();
-            private TextView tv;
-
-            @NonNull
-            @Override
-            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                row = inflater.inflate(android.R.layout.simple_list_item_1,parent,false);
-                tv = row.findViewById(android.R.id.text1);
-                tv.setText(regNoData.get(position));
-                return row;
+        if(sqLiteDatabase!=null){
+            Cursor cursor = sqLiteDatabase.rawQuery(databaseQueries.getSQL_RETURN_ALL_TABLES(), null);
+            tableNames = new ArrayList();
+            while(cursor.moveToNext()) {
+                String tableName = cursor.getString(
+                        cursor.getColumnIndexOrThrow("type"));
+                tableNames.add(tableName);
             }
-        });
+            cursor.close();
+        }
+        if(tableNames==null){
+            Log.d(TAG, "Null");
+        }
+//        Log.d(TAG, tableNames.toString());
+    }
+    class ReadableDatabaseGet extends AsyncTask<DatabaseHelper, Void, Boolean>{
+
+        @Override
+        protected Boolean doInBackground(DatabaseHelper... databaseHelpers) {
+            sqLiteDatabase = databaseHelpers[0].getReadableDatabase();
+            return true;
+        }
     }
 }

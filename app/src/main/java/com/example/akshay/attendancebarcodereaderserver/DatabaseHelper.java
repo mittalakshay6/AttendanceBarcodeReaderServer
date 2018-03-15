@@ -1,21 +1,23 @@
 package com.example.akshay.attendancebarcodereaderserver;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    DatabaseQueries dbQueries;
+    private static DatabaseQueries dbQueries = DatabaseQueries.getInstance();
 
     private static final String TAG = "DatabaseHelper";
+    private String databaseName;
 
     public static final int DATABASE_VERSION = 1;
 
-    public DatabaseHelper(Context context, String tableName) {
-        super(context, String.valueOf(R.string.DATABASE_NAME), null, DATABASE_VERSION);
-        dbQueries = new DatabaseQueries(tableName);
+    public DatabaseHelper(Context context, String databaseName) {
+        super(context, databaseName, null, DATABASE_VERSION);
+        this.databaseName=databaseName;
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -33,13 +35,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public void all_tables(SQLiteDatabase db){
-        db.execSQL(dbQueries.getSQL_RETURN_ALL_TABLES());
-        Log.d(TAG,"All table names returned");
+    public void setTableName(String tableName){
+        dbQueries.setTableName(tableName);
     }
-    public void createCol(SQLiteDatabase db){
-        db.execSQL(dbQueries.getSQL_CREATE_TODAY_COL(dbQueries.getTableName()));
-        Log.d(TAG,"New column for today created");
+
+    public Cursor all_tables(SQLiteDatabase db){
+        return db.rawQuery(dbQueries.getSQL_RETURN_ALL_TABLES(), null);
+    }
+    public Cursor createCol(SQLiteDatabase db){
+        return db.rawQuery(dbQueries.getSQL_CREATE_TODAY_COL(dbQueries.getTableName()), null);
     }
 
     public void mark_P(SQLiteDatabase db){

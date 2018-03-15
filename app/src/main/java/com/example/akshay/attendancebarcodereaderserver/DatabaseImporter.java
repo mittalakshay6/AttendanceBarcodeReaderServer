@@ -11,18 +11,18 @@ import com.ajts.androidmads.library.ExcelToSQLite;
 import java.io.File;
 
 public class DatabaseImporter {
-    private DatabaseHelper databaseHelper;
     private ExcelToSQLite excelToSQLite;
     private boolean isImported;
     private Context context;
     private SQLiteDatabase sqLiteDatabase;
     private File file;
+    private String databaseName;
 
     private final String TAG = "DatabaseImporter";
 
-    public DatabaseImporter(DatabaseHelper databaseHelper, Context context) {
-        this.databaseHelper = databaseHelper;
+    public DatabaseImporter(Context context, String databaseName) {
         this.context=context;
+        this.databaseName = databaseName;
     }
 
     public boolean isImported() {
@@ -32,6 +32,7 @@ public class DatabaseImporter {
     //TODO: SQLite2Excel library itself takes care of multithreading, hence may not be needed here.
 
     public void importDatabase(String path){
+        isImported=false;
         file = new File(path);
         if(!file.exists() && !file.canRead()){
             Toast toast = Toast.makeText(context, "File not exists, or cannot read file", Toast.LENGTH_LONG);
@@ -39,22 +40,7 @@ public class DatabaseImporter {
             return;
         }
         else{
-            new DatabaseRetriever().execute(databaseHelper);
-        }
-
-    }
-    class DatabaseRetriever extends AsyncTask<DatabaseHelper, Void, Boolean>{
-
-        @Override
-        protected Boolean doInBackground(DatabaseHelper... databaseHelpers) {
-            sqLiteDatabase=databaseHelpers[0].getWritableDatabase();
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            excelToSQLite = new ExcelToSQLite(context, String.valueOf(R.string.DATABASE_NAME), false);
+            excelToSQLite = new ExcelToSQLite(context, databaseName, false);
             excelToSQLite.importFromFile(file.getPath(), new ExcelToSQLite.ImportListener() {
                 @Override
                 public void onStart() {
@@ -72,7 +58,7 @@ public class DatabaseImporter {
                     Toast.makeText(context, "Database import failed", Toast.LENGTH_SHORT).show();
                 }
             });
-
         }
+
     }
 }

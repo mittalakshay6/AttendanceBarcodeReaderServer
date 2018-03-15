@@ -7,12 +7,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,15 +19,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.net.URI;
-
 public class DatabaseImportActivity extends AppCompatActivity {
 
     private TextView pathView;
+    private EditText databaseNameView;
     private Button browseBtn;
     private Button importDatabaseBtn;
-    private EditText tableNameView;
     private Button doneBtn;
     private static final int READ_REQUEST_CODE = 42;
     private final String TAG = "DatabaseImportActivity";
@@ -41,11 +37,11 @@ public class DatabaseImportActivity extends AppCompatActivity {
         pathView = findViewById(R.id.pathView);
         browseBtn = findViewById(R.id.browseBtn);
         importDatabaseBtn = findViewById(R.id.importBtn);
-        tableNameView = findViewById(R.id.tableNameView);
         doneBtn = findViewById(R.id.doneBtn);
+        databaseNameView = findViewById(R.id.databaseNameView);
 
+        databaseNameView.setVisibility(View.INVISIBLE);
         importDatabaseBtn.setVisibility(View.INVISIBLE);
-        tableNameView.setVisibility(View.INVISIBLE);
     }
 
     public void onClickDoneBtn(View view){
@@ -57,16 +53,9 @@ public class DatabaseImportActivity extends AppCompatActivity {
     }
 
     public void onClickImportDatabaseBtn(View View){
-        String tableName = tableNameView.getText().toString();
-        if(tableName.isEmpty()){
-            Toast toast = Toast.makeText(this, "Enter a valid Table name", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-        else{
-            DatabaseHelper databaseHelper = new DatabaseHelper(this, tableName);
-            DatabaseImporter databaseImporter = new DatabaseImporter(databaseHelper, this);
-            databaseImporter.importDatabase(pathView.getText().toString());
-        }
+        // TODO implement conflicting names check
+        DatabaseImporter databaseImporter = new DatabaseImporter(this, databaseNameView.getText().toString()+".db");
+        databaseImporter.importDatabase(pathView.getText().toString());
     }
 
     public void performFileSearch() {
@@ -88,14 +77,12 @@ public class DatabaseImportActivity extends AppCompatActivity {
                 String extension = path.substring(path.lastIndexOf("."));
                 Log.d(TAG, extension);
 
-                // TODO: Check if .xlsx files can be imported or not
-
-                if(extension.equals(".xls") || extension.equals(".xlsx")){
-                    tableNameView.setVisibility(View.VISIBLE);
+                if(extension.equals(".xls")){
+                    databaseNameView.setVisibility(View.VISIBLE);
                     importDatabaseBtn.setVisibility(View.VISIBLE);
                 }
                 else{
-                    tableNameView.setVisibility(View.INVISIBLE);
+                    databaseNameView.setVisibility(View.INVISIBLE);
                     importDatabaseBtn.setVisibility(View.INVISIBLE);
                     Toast toast = Toast.makeText(this, "Wrong file type selected", Toast.LENGTH_SHORT);
                     toast.show();

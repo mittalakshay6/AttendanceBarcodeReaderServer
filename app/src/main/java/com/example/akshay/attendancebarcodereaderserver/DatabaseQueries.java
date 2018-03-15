@@ -1,7 +1,5 @@
 package com.example.akshay.attendancebarcodereaderserver;
 
-import android.util.Log;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -9,18 +7,28 @@ public class DatabaseQueries {
 
     private final String TAG = "DatabaseQueries";
 
+    private static DatabaseQueries databaseQueries;
     private String tableName;
     private boolean isTableNameSet=false;
     private String COL_DATE="d";
 
-    public DatabaseQueries(String tableName){
-        this.tableName=tableName;
+    private DatabaseQueries(){
+    }
+
+    public static DatabaseQueries getInstance(){
+        if(databaseQueries!=null){
+            return databaseQueries;
+        }
+        else{
+            databaseQueries=new DatabaseQueries();
+            return databaseQueries;
+        }
     }
 
     //Queries
 
     public String getSQL_CREATE_ENTRIES(String tableName) {
-        return "CREATE TABLE " + tableName + " (" +
+        return "CREATE TABLE IF N " + tableName + " (" +
                 DatabaseContract.DatabaseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 DatabaseContract.DatabaseEntry.COL_REGNO + " INTEGER)";
     }
