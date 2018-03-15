@@ -1,6 +1,7 @@
 package com.example.akshay.attendancebarcodereaderserver.Connection;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -60,4 +61,18 @@ public class ConnectionManager {
 
     //TODO Implement the method to serve the accepted sockets
 
+    public Socket getSocket(){
+        return sockets.remove(0);
+    }
+    public boolean areAnyPendingConnections(){
+        if(sockets!=null) {
+            return !sockets.isEmpty();
+        }
+        else{
+            return false;
+        }
+    }
+    public boolean isAccepting(){
+        return doAccept;
+    }
 }
