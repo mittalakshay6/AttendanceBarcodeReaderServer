@@ -73,7 +73,7 @@ public class StartAttendanceActivity extends AppCompatActivity {
         Toast.makeText(this, "Database loading Finished", Toast.LENGTH_SHORT);
 
         lv = findViewById(R.id.regNoList);
-        regNoData = new ArrayList<String>();
+        regNoData = new ArrayList<>();
         adapter = new ArrayAdapter<String>(this, 0,regNoData){
             private View row;
             private LayoutInflater inflater = getLayoutInflater();
