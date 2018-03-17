@@ -19,8 +19,6 @@ import java.util.ArrayList;
 public class AttendanceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private final String TAG = "AttendanceActivity";
-    private int count1=0;
-    private int count2=0;
     private Spinner spinner_databaseName;
     private Spinner spinner_tableName;
     private String selected_dbName;
@@ -75,10 +73,6 @@ public class AttendanceActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getId() == spinner_databaseName.getId()) {
-            count1++;
-            if(count1<2){
-                return;
-            }
             selected_dbName = (String) parent.getItemAtPosition(position);
             Log.i(TAG, selected_dbName);
 //            Toast.makeText(this, selected_dbName, Toast.LENGTH_SHORT).show();
@@ -97,10 +91,6 @@ public class AttendanceActivity extends AppCompatActivity implements AdapterView
             spinner_tableName.setOnItemSelectedListener(this);
         }
         if(parent.getId() == spinner_tableName.getId()){
-            count2++;
-            if(count2<2){
-                return;
-            }
             selected_tableName =(String) parent.getItemAtPosition(position);
             Log.i(TAG, selected_tableName);
         }

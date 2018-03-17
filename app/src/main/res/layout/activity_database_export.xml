@@ -7,37 +7,79 @@
     android:paddingLeft="50dp"
     android:paddingRight="50dp"
     tools:context=".DatabaseExportActivity">
-    <EditText
-        android:id="@+id/dbNameView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="Enter database(.db) name..."
-        android:layout_centerHorizontal="true"
-        android:textSize="20sp" />
-    <EditText
-        android:id="@+id/exportDbNameView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="Give name(.xls) to file..."
-        android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:layout_below="@id/dbNameView"
-        />
-    <Button
-        android:id="@+id/exportBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/exportDbNameView"
-        android:text="@string/exportBtn"
-        android:onClick="onClickExportBtn"
-        android:visibility="visible" />
+    <!--<EditText-->
+        <!--android:id="@+id/dbNameView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="text"-->
+        <!--android:hint="Enter database(.db) name..."-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:textSize="20sp" />-->
+    <!--<EditText-->
+        <!--android:id="@+id/exportDbNameView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:inputType="text"-->
+        <!--android:hint="Give name(.xls) to file..."-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:textSize="20sp"-->
+        <!--android:layout_below="@id/dbNameView"-->
+        <!--/>-->
+    <!--<Button-->
+        <!--android:id="@+id/exportBtn"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_below="@id/exportDbNameView"-->
+        <!--android:text="@string/exportBtn"-->
+        <!--android:onClick="onClickExportBtn"-->
+        <!--android:visibility="visible" />-->
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/exportBtn"-->
+        <!--android:hint="Database will be exported to the Backup folder."-->
+        <!--android:textAlignment="center"/>-->
+
     <TextView
+        android:id="@+id/note_export"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/exportBtn"
-        android:hint="Database will be exported to the Backup folder."
-        android:textAlignment="center"/>
+        android:hint="Select Database:"
+        android:textSize="20sp"
+        android:textStyle="bold|italic" />
+
+    <Spinner
+        android:id="@+id/selectDatabaseNameSpinner_export"
+        android:layout_below="@+id/note_export"
+        android:layout_width="300dp"
+        android:layout_height="49dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+    <TextView
+        android:id="@+id/note2_export"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Select Table:"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        android:layout_below="@id/selectDatabaseNameSpinner_export"/>
+    <Spinner
+        android:id="@+id/selectTableSpinner_export"
+        android:layout_below="@+id/note2_export"
+        android:layout_width="300dp"
+        android:layout_height="49dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/startBtn_export"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="300dp"
+        android:text="@string/start"
+        android:textAlignment="center"
+        android:onClick="onClickStartBtn_export"/>
+
 </RelativeLayout>
