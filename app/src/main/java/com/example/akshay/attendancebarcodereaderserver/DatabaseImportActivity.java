@@ -38,14 +38,6 @@ public class DatabaseImportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_import);
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.INTERNET)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            ActivityCompat.requestPermissions(DatabaseImportActivity.this,
-                    new String[]{Manifest.permission.INTERNET},
-                    1);
-        }
-
         pathView = findViewById(R.id.pathView);
         browseBtn = findViewById(R.id.browseBtn);
         importDatabaseBtn = findViewById(R.id.importBtn);

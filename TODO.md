@@ -19,13 +19,12 @@
 - [ ] Mac address check on proxy attendances
 
 #extra housekeeping and error handling
-- [ ] No attendance in case no db
-- [ ] No import in case no file selected
-- [ ] No export in case no db available
-- [ ] No export in case no db and table selected
-- [ ] android_metadata table should be no longer displayed
-- [ ] all permissions to be set at one place only
-- [ ] remove unnecessary permissions
+- [x] No attendance in case no db
+- [x] No import in case no file selected
+- [x] No export in case no db available
+- [x] No export in case no db and table selected
+- [x] android_metadata table should be no longer displayed
+- [x] all permissions to be set at one place only
 - [ ] progress for database import
 - [ ] progress for database export
 - [ ] progress for connection setup

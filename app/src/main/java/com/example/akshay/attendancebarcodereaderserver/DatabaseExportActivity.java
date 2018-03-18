@@ -64,8 +64,15 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
         }
 
     }
-
     public void onClickStartBtn_export(View view){
+        if(selected_dbName == null){
+            Toast.makeText(this, "No Database to export", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(selected_tableName == null){
+            Toast.makeText(this, "No Table to import", Toast.LENGTH_SHORT).show();
+            return;
+        }
         fileName = fileNameView_export.getText().toString();
         if(fileName.isEmpty()){
             Toast.makeText(this, "Enter a file name", Toast.LENGTH_SHORT).show();
@@ -76,8 +83,6 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
         databaseExporter = new DatabaseExporter(this, selected_dbName, selected_tableName, fileName);
         databaseExporter.exportTable();
     }
-
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getId() == spinner_dbname_export.getId()) {
@@ -92,7 +97,11 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
             ArrayList<CharSequence> table_names = new ArrayList<>();
             ArrayAdapter<CharSequence> table_names_adapter;
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                table_names.add(cursor.getString(cursor.getColumnIndex(strings[0])));
+                String table = cursor.getString(cursor.getColumnIndex(strings[0]));
+                if(table.equals("android_metadata")){
+                    continue;
+                }
+                table_names.add(table);
             }
             table_names_adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_text_layout, table_names);
             spinner_tableName_export.setAdapter(table_names_adapter);
@@ -103,7 +112,6 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
             Log.i(TAG, selected_tableName);
         }
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 

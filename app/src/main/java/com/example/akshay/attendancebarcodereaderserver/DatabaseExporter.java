@@ -42,7 +42,7 @@ public class DatabaseExporter {
 
             @Override
             public void onError(Exception e) {
-                Toast.makeText(context, "Database export failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Database export failed " + e.getMessage(), Toast.LENGTH_LONG).show();
                 Log.d(TAG, "Database Export failed " + e.getMessage());
             }
         });

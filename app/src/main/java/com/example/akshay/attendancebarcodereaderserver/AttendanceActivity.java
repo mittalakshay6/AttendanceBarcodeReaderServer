@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,6 +46,9 @@ public class AttendanceActivity extends AppCompatActivity implements AdapterView
                 dir = this.getDatabasePath("a").getParent();
                 File file = new File(dir);
                 File[] files = file.listFiles();
+                if(files.length == 0){
+                    Toast.makeText(this, "No database is imported", Toast.LENGTH_SHORT).show();
+                }
                 ArrayList<CharSequence> fileArrayList = new ArrayList<>();
                 ArrayAdapter<CharSequence> fileArrayAdapter;
                 for (int i = 0; i < files.length; i++) {
@@ -64,6 +68,16 @@ public class AttendanceActivity extends AppCompatActivity implements AdapterView
     }
 
     public void onClickStartBtn(View View){
+        Log.d(TAG, selected_dbName + " " + selected_tableName);
+        if(selected_dbName == null) {
+            Toast.makeText(this, "No Database selected", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(selected_tableName == null){
+            Toast.makeText(this, "No Table selected", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent intent = new Intent(this, StartAttendanceActivity.class);
         intent.putExtra(INTENT_DBNAME, selected_dbName);
         intent.putExtra(INTENT_TABLENAME, selected_tableName);
@@ -84,7 +98,11 @@ public class AttendanceActivity extends AppCompatActivity implements AdapterView
             ArrayList<CharSequence> table_names = new ArrayList<>();
             ArrayAdapter<CharSequence> table_names_adapter;
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                table_names.add(cursor.getString(cursor.getColumnIndex(strings[0])));
+                String table=cursor.getString(cursor.getColumnIndex(strings[0]));
+                if(table.equals("android_metadata")){
+                    continue;
+                }
+                table_names.add(table);
             }
             table_names_adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_text_layout, table_names);
             spinner_tableName.setAdapter(table_names_adapter);

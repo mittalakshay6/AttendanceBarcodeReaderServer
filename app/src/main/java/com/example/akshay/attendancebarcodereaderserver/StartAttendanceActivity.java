@@ -48,14 +48,6 @@ public class StartAttendanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startattendance);
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_NETWORK_STATE)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            ActivityCompat.requestPermissions(StartAttendanceActivity.this,
-                    new String[]{Manifest.permission.ACCESS_NETWORK_STATE},
-                    2);
-        }
-
         Intent intent = getIntent();
         String dbname = intent.getStringExtra(AttendanceActivity.INTENT_DBNAME);
         String tableName = intent.getStringExtra(AttendanceActivity.INTENT_TABLENAME);
