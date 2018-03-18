@@ -2,11 +2,13 @@ package com.example.akshay.attendancebarcodereaderserver;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ public class DeleteDatabaseActivity extends AppCompatActivity implements Adapter
     private ProgressBar progressBar;
     private final String TAG = "DeleteDatabaseActivity";
     private String selected_dbName;
+    private ArrayAdapter<CharSequence> fileArrayAdapter;
+    private ArrayList<CharSequence> fileArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +36,7 @@ public class DeleteDatabaseActivity extends AppCompatActivity implements Adapter
             dir = this.getDatabasePath("a").getParent();
             File file = new File(dir);
             File[] files = file.listFiles();
-            ArrayList<CharSequence> fileArrayList = new ArrayList<>();
-            ArrayAdapter<CharSequence> fileArrayAdapter;
+            fileArrayList = new ArrayList<>();
             for (int i = 0; i < files.length; i++) {
                 if (files[i].getName().endsWith("db")) {
                     fileArrayList.add(files[i].getName());
@@ -50,7 +53,21 @@ public class DeleteDatabaseActivity extends AppCompatActivity implements Adapter
     }
 
     public void onClickDeleteDbBtn(View view){
-
+        String filePath = null;
+        filePath = this.getDatabasePath("a").getParent()+File.separator+selected_dbName;
+        Log.d(TAG, "File Path: "+filePath);
+        File file = new File(filePath);
+        boolean result = file.delete();
+        if(result){
+            Log.d(TAG, "File Deleted successfully");
+            fileArrayList.remove(selected_dbName);
+            fileArrayAdapter.notifyDataSetChanged();
+            Toast.makeText(this, "Database removed", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Log.e(TAG, "Unable to delete file");
+            Toast.makeText(this, "Cannot delete database", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
