@@ -10,7 +10,9 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,6 +26,9 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
     private String selected_tableName;
     private Button startBtn;
     private DatabaseQueries databaseQueries;
+    private DatabaseExporter databaseExporter;
+    private String fileName;
+    private EditText fileNameView_export;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,7 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
         spinner_tableName_export = findViewById(R.id.selectTableSpinner_export);
         startBtn = findViewById(R.id.startBtn_export);
         databaseQueries = DatabaseQueries.getInstance();
+        fileNameView_export = findViewById(R.id.fileNameView_export);
 
         try{
             String dir = null;
@@ -60,7 +66,15 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
     }
 
     public void onClickStartBtn_export(View view){
-
+        fileName = fileNameView_export.getText().toString();
+        if(fileName.isEmpty()){
+            Toast.makeText(this, "Enter a file name", Toast.LENGTH_SHORT);
+            return;
+        }
+        fileName=fileName+".xls";
+        Log.d(TAG, selected_dbName+selected_tableName);
+        databaseExporter = new DatabaseExporter(this, selected_dbName, selected_tableName, fileName);
+        databaseExporter.exportTable();
     }
 
 

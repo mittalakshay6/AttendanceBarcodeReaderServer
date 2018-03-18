@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="200dp"
-    android:paddingLeft="50dp"
-    android:paddingRight="50dp"
     tools:context=".DatabaseExportActivity">
     <!--<EditText-->
         <!--android:id="@+id/dbNameView"-->
@@ -34,12 +31,12 @@
         <!--android:text="@string/exportBtn"-->
         <!--android:onClick="onClickExportBtn"-->
         <!--android:visibility="visible" />-->
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/exportBtn"-->
-        <!--android:hint="Database will be exported to the Backup folder."-->
-        <!--android:textAlignment="center"/>-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/startBtn_export"
+        android:hint="Database will be exported to the AttendanceExcelSheets folder."
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/note_export"
@@ -71,6 +68,14 @@
         android:layout_height="49dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
+    <EditText
+        android:id="@+id/fileNameView_export"
+        android:layout_below="@id/selectTableSpinner_export"
+        android:hint="Enter file name..."
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/startBtn_export"
