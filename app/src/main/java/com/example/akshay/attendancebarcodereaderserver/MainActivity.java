@@ -54,4 +54,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DatabaseExportActivity.class);
         startActivity(intent);
     }
+    public void onClickDeleteDbBtn(View view){
+        Intent intent = new Intent(this, DeleteDatabaseActivity.class);
+        startActivity(intent);
+    }
 }

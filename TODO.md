@@ -8,6 +8,7 @@
 - [x] Mark A function
 - [ ] Avoid duplicate entries
 - [x] File explorer browser view in UI
+- [ ] delete database feature
 
 #connection
 - [x] Socket programming on server side

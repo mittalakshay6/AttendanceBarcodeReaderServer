@@ -25,6 +25,7 @@
         <activity android:name=".StartAttendanceActivity" />
         <activity android:name=".DatabaseImportActivity" />
         <activity android:name=".DatabaseExportActivity" />
+        <activity android:name=".DeleteDatabaseActivity"></activity>
     </application>
 
 </manifest>

@@ -32,4 +32,14 @@
         android:onClick="onClickTakeAttendance"
         android:text="@string/takeAttendanceBtn" />
 
+    <Button
+        android:id="@+id/deleteDbBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/takeAttendanceBtn"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickDeleteDbBtn"
+        android:text="Delete Database" />
+
+
 </RelativeLayout>
