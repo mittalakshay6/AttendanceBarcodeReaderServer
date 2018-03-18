@@ -24,6 +24,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public class DatabaseImportActivity extends AppCompatActivity {
 
     private TextView pathView;
@@ -61,7 +64,20 @@ public class DatabaseImportActivity extends AppCompatActivity {
     }
 
     public void onClickImportDatabaseBtn(View View){
-        // TODO implement conflicting names check
+        String fileName = databaseNameView.getText().toString();
+        ArrayList<CharSequence> fileArrayList = new ArrayList<>();
+        String dir = this.getDatabasePath("a").getParent();
+        File file = new File(dir);
+        File[] files = file.listFiles();
+        for (int i = 0; i < files.length; i++) {
+            if (files[i].getName().endsWith("db")) {
+                fileArrayList.add(files[i].getName());
+            }
+        }
+        if(fileArrayList.contains(fileName+".db")){
+            Toast.makeText(this, "Database already exists", Toast.LENGTH_SHORT).show();
+            return;
+        }
         DatabaseImporter.DatabaseImporterListener listener = new DatabaseImporter.DatabaseImporterListener() {
             @Override
             public void onStart() {
