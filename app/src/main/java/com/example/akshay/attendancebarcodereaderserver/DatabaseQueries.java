@@ -51,6 +51,10 @@ public class DatabaseQueries {
                 "WHERE " + DatabaseContract.DatabaseEntry.COL_REGNO + " == " + regNum;
     }
 
+    public String getIS_REG_NUM_AVAILABLE(String tableName, String regNum){
+        return "SELECT RegNum FROM " +tableName+" WHERE "+DatabaseContract.DatabaseEntry.COL_REGNO + " == "+regNum;
+    }
+
     public void setTableName(String tableName) {
         this.tableName = tableName;
         isTableNameSet=true;

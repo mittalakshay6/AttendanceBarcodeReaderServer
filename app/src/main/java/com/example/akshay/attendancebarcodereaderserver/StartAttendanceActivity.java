@@ -3,6 +3,7 @@ package com.example.akshay.attendancebarcodereaderserver;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -110,18 +111,28 @@ public class StartAttendanceActivity extends AppCompatActivity {
                     DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
                     final String showData = dataInputStream.readUTF();
                     final String data = showData+".0";
-
-                    Log.d(TAG, databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
-                    sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
                     DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-                    dataOutputStream.writeUTF("S");
+                    Cursor cursor = sqLiteDatabase.rawQuery(databaseQueries.getIS_REG_NUM_AVAILABLE(databaseQueries.getTableName(), data), null);
+                    if(cursor.getCount()==0){
+                        dataOutputStream.writeBoolean(false);
+                        StartAttendanceActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                regNoData.add(showData+"_invalid");
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
+                    else {
+                        sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
+                        dataOutputStream.writeBoolean(true);
 
-                    StartAttendanceActivity.this.runOnUiThread(new Runnable() {
-                        public void run() {
-                            regNoData.add(showData);
-                            adapter.notifyDataSetChanged();
-                        }
-                    });
+                        StartAttendanceActivity.this.runOnUiThread(new Runnable() {
+                            public void run() {
+                                regNoData.add(showData);
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
