@@ -17,12 +17,14 @@ public class DatabaseImporter {
     private SQLiteDatabase sqLiteDatabase;
     private File file;
     private String databaseName;
+    private DatabaseImporterListener listener;
 
     private final String TAG = "DatabaseImporter";
 
-    public DatabaseImporter(Context context, String databaseName) {
+    public DatabaseImporter(Context context, String databaseName, DatabaseImporterListener listener) {
         this.context=context;
         this.databaseName = databaseName;
+        this.listener=listener;
     }
 
     public boolean isImported() {
@@ -44,6 +46,7 @@ public class DatabaseImporter {
             excelToSQLite.importFromFile(file.getPath(), new ExcelToSQLite.ImportListener() {
                 @Override
                 public void onStart() {
+                    listener.onStart();
                     Toast.makeText(context, "Database import started", Toast.LENGTH_SHORT).show();
                 }
 
@@ -51,14 +54,21 @@ public class DatabaseImporter {
                 public void onCompleted(String dbName) {
                     Toast.makeText(context, "Database imported successfully", Toast.LENGTH_SHORT).show();
                     isImported=true;
+                    listener.onCompleted();
                 }
 
                 @Override
                 public void onError(Exception e) {
+                    listener.onError();
                     Toast.makeText(context, "Database import failed", Toast.LENGTH_SHORT).show();
                 }
             });
         }
 
+    }
+    public interface DatabaseImporterListener{
+        void onStart();
+        void onCompleted();
+        void onError();
     }
 }

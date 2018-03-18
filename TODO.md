@@ -25,8 +25,8 @@
 - [x] No export in case no db and table selected
 - [x] android_metadata table should be no longer displayed
 - [x] all permissions to be set at one place only
-- [ ] progress for database import
-- [ ] progress for database export
-- [ ] progress for connection setup
+- [x] progress for database import
+- [x] progress for database export
+- [x] progress for connection setup
 - [ ] show number of attendances marked
 - [ ] server side function for manual attendance privilege

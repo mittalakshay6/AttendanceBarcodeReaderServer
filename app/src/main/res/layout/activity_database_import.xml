@@ -8,6 +8,13 @@
     android:paddingRight="50dp"
     tools:context=".DatabaseImportActivity">
 
+    <ProgressBar
+        android:id="@+id/pb_loading_indicator"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_toRightOf="@+id/importBtn"
+        android:layout_below="@id/databaseNameView"/>
+
     <TextView
         android:id="@+id/pathView"
         android:layout_width="match_parent"

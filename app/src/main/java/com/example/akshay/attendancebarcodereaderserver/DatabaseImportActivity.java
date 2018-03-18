@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class DatabaseImportActivity extends AppCompatActivity {
     private Button doneBtn;
     private static final int READ_REQUEST_CODE = 42;
     private final String TAG = "DatabaseImportActivity";
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class DatabaseImportActivity extends AppCompatActivity {
         importDatabaseBtn = findViewById(R.id.importBtn);
         doneBtn = findViewById(R.id.doneBtn);
         databaseNameView = findViewById(R.id.databaseNameView);
+        progressBar = findViewById(R.id.pb_loading_indicator);
+        progressBar.setVisibility(View.INVISIBLE);
 
         databaseNameView.setVisibility(View.INVISIBLE);
         importDatabaseBtn.setVisibility(View.INVISIBLE);
@@ -58,7 +62,23 @@ public class DatabaseImportActivity extends AppCompatActivity {
 
     public void onClickImportDatabaseBtn(View View){
         // TODO implement conflicting names check
-        DatabaseImporter databaseImporter = new DatabaseImporter(this, databaseNameView.getText().toString()+".db");
+        DatabaseImporter.DatabaseImporterListener listener = new DatabaseImporter.DatabaseImporterListener() {
+            @Override
+            public void onStart() {
+                progressBar.setVisibility(android.view.View.VISIBLE);
+            }
+
+            @Override
+            public void onCompleted() {
+                progressBar.setVisibility(android.view.View.INVISIBLE);
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        };
+        DatabaseImporter databaseImporter = new DatabaseImporter(this, databaseNameView.getText().toString()+".db", listener);
         databaseImporter.importDatabase(pathView.getText().toString());
     }
 

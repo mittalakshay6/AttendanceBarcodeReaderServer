@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -29,12 +30,15 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
     private DatabaseExporter databaseExporter;
     private String fileName;
     private EditText fileNameView_export;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database_export);
 
+        progressBar = findViewById(R.id.pb_loading_indicator);
+        progressBar.setVisibility(View.INVISIBLE);
         spinner_dbname_export = findViewById(R.id.selectDatabaseNameSpinner_export);
         spinner_tableName_export = findViewById(R.id.selectTableSpinner_export);
         startBtn = findViewById(R.id.startBtn_export);
@@ -81,7 +85,9 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
         fileName=fileName+".xls";
         Log.d(TAG, selected_dbName+selected_tableName);
         databaseExporter = new DatabaseExporter(this, selected_dbName, selected_tableName, fileName);
+        progressBar.setVisibility(View.VISIBLE);
         databaseExporter.exportTable();
+        progressBar.setVisibility(View.INVISIBLE);
     }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
