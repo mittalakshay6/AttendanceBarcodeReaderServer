@@ -108,14 +108,17 @@ public class StartAttendanceActivity extends AppCompatActivity {
                 Socket socket = connectionManager.getSocket();
                 try {
                     DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-                    final String data = dataInputStream.readUTF();
+                    final String showData = dataInputStream.readUTF();
+                    final String data = showData+".0";
+
+                    Log.d(TAG, databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
                     sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
                     DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                     dataOutputStream.writeUTF("S");
 
                     StartAttendanceActivity.this.runOnUiThread(new Runnable() {
                         public void run() {
-                            regNoData.add(data);
+                            regNoData.add(showData);
                             adapter.notifyDataSetChanged();
                         }
                     });

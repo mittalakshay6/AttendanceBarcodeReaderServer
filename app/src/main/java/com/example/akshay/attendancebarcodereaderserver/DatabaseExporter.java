@@ -30,19 +30,19 @@ public class DatabaseExporter {
         sqLiteToExcel.exportSingleTable(tableName, fileName, new SQLiteToExcel.ExportListener() {
             @Override
             public void onStart() {
-                Toast.makeText(context, "Database Export Started", Toast.LENGTH_SHORT);
+                Toast.makeText(context, "Database Export Started", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Database export started");
             }
 
             @Override
             public void onCompleted(String filePath) {
-                Toast.makeText(context, "Database export completed successfully", Toast.LENGTH_SHORT);
+                Toast.makeText(context, "Database export completed successfully", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Database Export Completed");
             }
 
             @Override
             public void onError(Exception e) {
-                Toast.makeText(context, "Database export failed " + e.getMessage(), Toast.LENGTH_SHORT);
+                Toast.makeText(context, "Database export failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Database Export failed " + e.getMessage());
             }
         });

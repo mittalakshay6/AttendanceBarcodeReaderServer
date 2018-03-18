@@ -68,7 +68,7 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
     public void onClickStartBtn_export(View view){
         fileName = fileNameView_export.getText().toString();
         if(fileName.isEmpty()){
-            Toast.makeText(this, "Enter a file name", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Enter a file name", Toast.LENGTH_SHORT).show();
             return;
         }
         fileName=fileName+".xls";
