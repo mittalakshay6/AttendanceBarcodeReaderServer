@@ -102,7 +102,7 @@ public class DatabaseImportActivity extends AppCompatActivity {
     }
 
     public void performFileSearch() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
         startActivityForResult(intent, READ_REQUEST_CODE);
@@ -114,18 +114,10 @@ public class DatabaseImportActivity extends AppCompatActivity {
             Uri uri;
             if(data!=null){
                 uri = data.getData();
-                if(uri == null){
-                    Bundle bundle = data.getExtras();
-                    uri = (Uri)bundle.get(Intent.EXTRA_STREAM);
+                if(uri==null){
+                    uri = (Uri)data.getExtras().get("data");
                 }
-                if(!isExternalStorageDocument(uri)){
-                    databaseNameView.setVisibility(View.INVISIBLE);
-                    importDatabaseBtn.setVisibility(View.INVISIBLE);
-                    Toast toast = Toast.makeText(this, "Wrong file type selected", Toast.LENGTH_SHORT);
-                    toast.show();
-                    return;
-                }
-                String path = getPath(this, uri);
+                String path = RealPathUtil.getRealPath(this, uri);
                 pathView.setText(path);
                 String extension = null;
                 if (path != null) {
