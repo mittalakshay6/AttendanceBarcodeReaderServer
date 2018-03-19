@@ -34,6 +34,7 @@ import static java.lang.Thread.sleep;
 
 public class StartAttendanceActivity extends AppCompatActivity {
     private final String TAG = "StartAttendanceActivity";
+    public static final String DUPLICATECHECKER_OBJECT = "DuplicateChecker_Object";
     private ListView lv;
     private ArrayList<String> regNoData;
     private ConnectionManager connectionManager;
@@ -42,6 +43,7 @@ public class StartAttendanceActivity extends AppCompatActivity {
     private DatabaseQueries databaseQueries;
     private SQLiteDatabase sqLiteDatabase;
     private ArrayAdapter<String> adapter;
+    private DuplicateChecker duplicateChecker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,23 @@ public class StartAttendanceActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String dbname = intent.getStringExtra(AttendanceActivity.INTENT_DBNAME);
         String tableName = intent.getStringExtra(AttendanceActivity.INTENT_TABLENAME);
+
+        duplicateChecker = new DuplicateChecker(new DuplicateChecker.DuplicateCheckerListener() {
+            @Override
+            public void onStart() {
+                Toast.makeText(StartAttendanceActivity.this, "Proxy check enabled", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFound() {
+
+            }
+
+            @Override
+            public void onStop() {
+
+            }
+        });
 
         databaseQueries=DatabaseQueries.getInstance();
         databaseHelper = new DatabaseHelper(this, dbname);
@@ -137,5 +156,9 @@ public class StartAttendanceActivity extends AppCompatActivity {
         connectionManager.stopAccepting();
         sqLiteDatabase.close();
         finish();
+    }
+    public void onClickDuplicateCheckBtn(View view){
+        Intent intent = new Intent(this, DuplicateCheckActivity.class);
+        startActivity(intent);
     }
 }
