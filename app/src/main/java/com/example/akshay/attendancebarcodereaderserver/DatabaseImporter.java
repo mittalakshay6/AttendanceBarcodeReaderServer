@@ -15,6 +15,7 @@ public class DatabaseImporter {
     private boolean isImported;
     private Context context;
     private SQLiteDatabase sqLiteDatabase;
+    private DatabaseHelper databaseHelper;
     private File file;
     private String databaseName;
     private DatabaseImporterListener listener;

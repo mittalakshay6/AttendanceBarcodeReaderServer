@@ -117,10 +117,14 @@ public class DatabaseImportActivity extends AppCompatActivity {
                 assert uri != null;
                 String path = getPath(this, uri);
                 pathView.setText(path);
-                String extension = path.substring(path.lastIndexOf("."));
-                Log.d(TAG, extension);
+                String extension = null;
+                if (path != null) {
+                    extension = path.substring(path.lastIndexOf("."));
+                    Log.d(TAG, extension);
+                }
 
-                if(extension.equals(".xls")){
+
+                if(extension!=null && extension.equals(".xls")){
                     databaseNameView.setVisibility(View.VISIBLE);
                     importDatabaseBtn.setVisibility(View.VISIBLE);
                 }
@@ -155,10 +159,13 @@ public class DatabaseImportActivity extends AppCompatActivity {
             else if (isDownloadsDocument(uri)) {
 
                 final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
-                return getDataColumn(context, contentUri, null, null);
+                String id1 = id.substring(4);
+                Log.d("HEREYOUGO", "id: "+id1);
+                return id1;
+//                final Uri contentUri = ContentUris.withAppendedId(
+//                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+//
+//                return getDataColumn(context, contentUri, null, null);
             }
             // MediaProvider
             else if (isMediaDocument(uri)) {
