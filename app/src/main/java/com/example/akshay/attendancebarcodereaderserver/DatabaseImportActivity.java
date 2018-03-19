@@ -69,14 +69,17 @@ public class DatabaseImportActivity extends AppCompatActivity {
         String dir = this.getDatabasePath("a").getParent();
         File file = new File(dir);
         File[] files = file.listFiles();
-        for (int i = 0; i < files.length; i++) {
-            if (files[i].getName().endsWith("db")) {
-                fileArrayList.add(files[i].getName());
+        if(files != null) {
+            for (int i = 0; i < files.length; i++) {
+                if (files[i].getName().endsWith("db")) {
+                    fileArrayList.add(files[i].getName());
+                }
             }
-        }
-        if(fileArrayList.contains(fileName+".db")){
-            Toast.makeText(this, "Database already exists", Toast.LENGTH_SHORT).show();
-            return;
+
+            if (fileArrayList.contains(fileName + ".db")) {
+                Toast.makeText(this, "Database already exists", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
         DatabaseImporter.DatabaseImporterListener listener = new DatabaseImporter.DatabaseImporterListener() {
             @Override

@@ -6,7 +6,7 @@
 - [x] Fetch date and make a new column in table
 - [x] Mark P function
 - [x] Mark A function
-- [ ] Avoid duplicate entries
+- [x] Avoid duplicate entries
 - [x] File explorer browser view in UI
 - [x] delete database feature
 

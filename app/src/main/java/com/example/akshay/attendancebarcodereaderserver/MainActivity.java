@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -24,6 +25,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
+
+
+
+
+
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(this, "testMain.db");
+        databaseHelper.setTableName("testTable");
+        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
+
+
+
+
+
+
+
+
+
+
+
+
 
         takeAttendanceBtn = findViewById(R.id.takeAttendanceBtn);
         importDb = findViewById(R.id.importBtn);
