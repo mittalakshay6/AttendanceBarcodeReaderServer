@@ -114,7 +114,10 @@ public class DatabaseImportActivity extends AppCompatActivity {
             Uri uri;
             if(data!=null){
                 uri = data.getData();
-                assert uri != null;
+                if(uri == null){
+                    Bundle bundle = data.getExtras();
+                    uri = (Uri)bundle.get(Intent.EXTRA_STREAM);
+                }
                 if(!isExternalStorageDocument(uri)){
                     databaseNameView.setVisibility(View.INVISIBLE);
                     importDatabaseBtn.setVisibility(View.INVISIBLE);
