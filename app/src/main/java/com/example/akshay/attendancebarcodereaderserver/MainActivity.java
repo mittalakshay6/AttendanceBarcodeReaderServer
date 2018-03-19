@@ -26,31 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-
-
-
-
-
-
-        DatabaseHelper databaseHelper = new DatabaseHelper(this, "testMain.db");
-        databaseHelper.setTableName("testTable");
-        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
-
-
-
-
-
-
-
-
-
-
-
-
-
         takeAttendanceBtn = findViewById(R.id.takeAttendanceBtn);
         importDb = findViewById(R.id.importBtn);
         exportDb = findViewById(R.id.exportBtn);

@@ -115,6 +115,13 @@ public class DatabaseImportActivity extends AppCompatActivity {
             if(data!=null){
                 uri = data.getData();
                 assert uri != null;
+                if(!isExternalStorageDocument(uri)){
+                    databaseNameView.setVisibility(View.INVISIBLE);
+                    importDatabaseBtn.setVisibility(View.INVISIBLE);
+                    Toast toast = Toast.makeText(this, "Wrong file type selected", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
                 String path = getPath(this, uri);
                 pathView.setText(path);
                 String extension = null;
@@ -145,6 +152,7 @@ public class DatabaseImportActivity extends AppCompatActivity {
 //        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
             // ExternalStorageProvider
 //            if (isExternalStorageDocument(uri)) {
+
                 final String docId = DocumentsContract.getDocumentId(uri);
                 if(docId.contains(":")) {
                     final String[] split = docId.split(":");
