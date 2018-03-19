@@ -38,16 +38,6 @@ public class MainActivity extends AppCompatActivity {
         DatabaseHelper databaseHelper = new DatabaseHelper(this, "start.db");
         databaseHelper.setTableName("testTable");
         SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
-        String filePath = this.getDatabasePath("a").getParent()+File.separator+"start.db";
-        Log.d(TAG, "File Path: "+filePath);
-        File file = new File(filePath);
-        boolean result = file.delete();
-        if(result){
-            Log.d(TAG, "File deleted");
-        }
-        else{
-            Log.d(TAG, "File not deleted");
-        }
 
 
 
