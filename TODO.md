@@ -13,11 +13,10 @@
 #connection
 - [x] Socket programming on server side
 - [x] Data transfer implement
-- [ ] Connection break notification
 - [x] Proper implementation of AsyncTask classes and its types.
-- [ ] Show connection in progress
-- [ ] Send attendance confirmation to client
-- [ ] Mac address check on proxy attendances
+- [x] Show connection in progress on client
+- [x] Send attendance confirmation to client
+- [x] IP address check on proxy attendances
 
 #extra housekeeping and error handling
 - [x] No attendance in case no db
@@ -29,5 +28,6 @@
 - [x] progress for database import
 - [x] progress for database export
 - [x] progress for connection setup
-- [ ] show number of attendances marked
+- [x] show number of attendances marked
 - [ ] server side function for manual attendance privilege
+- [ ] handle device rotate data lost case
