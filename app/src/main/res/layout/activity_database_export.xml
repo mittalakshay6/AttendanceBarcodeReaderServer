@@ -3,20 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".DatabaseExportActivity">
-    <ProgressBar
-        android:id="@+id/pb_loading_indicator"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_toRightOf="@+id/startBtn_export"
-        android:layout_below="@id/fileNameView_export"/>
+    tools:context=".DatabaseExportActivity"
+    android:padding="50dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/startBtn_export"
-        android:hint="Database will be exported to the AttendanceExcelSheets folder."
-        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/note_export"
@@ -24,47 +13,66 @@
         android:layout_height="wrap_content"
         android:hint="Select Database:"
         android:textSize="20sp"
-        android:textStyle="bold|italic" />
-
+        android:textStyle="bold" />
     <Spinner
         android:id="@+id/selectDatabaseNameSpinner_export"
         android:layout_below="@+id/note_export"
         android:layout_width="300dp"
-        android:layout_height="49dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="10dp" />
     <TextView
         android:id="@+id/note2_export"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Select Table:"
         android:textSize="20sp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
         android:layout_below="@id/selectDatabaseNameSpinner_export"/>
     <Spinner
         android:id="@+id/selectTableSpinner_export"
         android:layout_below="@+id/note2_export"
         android:layout_width="300dp"
-        android:layout_height="49dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="10dp" />
+
     <EditText
         android:id="@+id/fileNameView_export"
         android:layout_below="@id/selectTableSpinner_export"
         android:hint="Enter file name..."
         android:layout_centerHorizontal="true"
         android:textSize="20sp"
+        android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <ProgressBar
+        android:id="@+id/pb_loading_indicator"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/startBtn_export"/>
+
 
     <Button
         android:id="@+id/startBtn_export"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp"
+        android:layout_above="@id/destination"
         android:text="@string/start"
         android:textAlignment="center"
-        android:onClick="onClickStartBtn_export"/>
+        android:onClick="onClickStartBtn_export"
+        android:background="@drawable/custom_button"
+        android:textColor="#ffffff"/>
+    <TextView
+        android:id="@+id/destination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:hint="Database will be exported to the AttendanceExcelSheets folder."
+        android:textAlignment="center"/>
+
 
 </RelativeLayout>

@@ -2,18 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="200dp"
+    android:layout_height="match_parent"
+    android:paddingTop="100dp"
     android:paddingLeft="50dp"
     android:paddingRight="50dp"
-    tools:context=".DatabaseImportActivity">
+    android:paddingBottom="50dp"
+    android:orientation="vertical"
+    tools:context="com.example.akshay.attendancebarcodereaderserver.DatabaseImportActivity">
 
     <ProgressBar
         android:id="@+id/pb_loading_indicator"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:layout_toRightOf="@+id/importBtn"
-        android:layout_below="@id/databaseNameView"/>
+        android:background="@color/colorPrimaryDark"
+        android:layout_below="@+id/databaseNameView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp" />
 
     <TextView
         android:id="@+id/pathView"
@@ -30,11 +34,12 @@
         android:layout_alignBaseline="@+id/pathView"
         android:layout_alignParentEnd="true"
         android:onClick="onClickBrowseBtn"
-        android:text="@string/browseBtn" />
+        android:text="..." />
 
     <EditText
         android:id="@+id/databaseNameView"
         android:hint="@string/databaseNameView"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/browseBtn"
@@ -45,18 +50,21 @@
         android:id="@+id/importBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/databaseNameView"
+        android:layout_above="@+id/doneBtn"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/custom_button"
+        android:onClick="onClickImportDatabaseBtn"
         android:text="@string/importBtn"
-        android:onClick="onClickImportDatabaseBtn" />
+        android:textColor="#ffffff"/>
 
     <Button
         android:id="@+id/doneBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/importBtn"
-        android:layout_centerHorizontal="true"
-        android:text="@string/doneBtn"
-        android:onClick="onClickDoneBtn"/>
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/browseBtn"
+        android:background="@drawable/ic_check_circle_white_36dp"
+        android:onClick="onClickDoneBtn"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:padding="50dp"
     android:orientation="vertical"
-    android:visibility="visible"
     tools:context="com.example.akshay.attendancebarcodereaderserver.AttendanceActivity">
 
     <TextView
@@ -14,7 +13,7 @@
         android:layout_height="wrap_content"
         android:hint="Select Database:"
         android:textSize="20sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold" />
 
     <Spinner
         android:layout_below="@+id/note"
@@ -22,14 +21,14 @@
         android:layout_width="300dp"
         android:layout_height="49dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="10dp" />
     <TextView
         android:id="@+id/note2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Select Table:"
         android:textSize="20sp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         android:layout_below="@id/selectDatabaseNameSpinner"/>
     <Spinner
         android:layout_below="@+id/note2"
@@ -37,7 +36,7 @@
         android:layout_width="300dp"
         android:layout_height="49dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="10dp" />
 
     <Button
         android:id="@+id/startBtn"
@@ -46,7 +45,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="300dp"
         android:text="@string/start"
+        android:textSize="20sp"
         android:textAlignment="center"
-        android:onClick="onClickStartBtn"/>
+        android:onClick="onClickStartBtn"
+        android:background="@drawable/custom_button"
+        android:textColor="#ffff"/>
 
 </RelativeLayout>

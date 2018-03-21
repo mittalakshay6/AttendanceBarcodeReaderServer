@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MarkIT</string>
+    <string name="app_name">markP</string>
     <string name="DBHandler">DBHandler</string>
     <string name="DATABASE_NAME">Attendance.db</string>
     <string name="title_activity_main">MainActivity</string>

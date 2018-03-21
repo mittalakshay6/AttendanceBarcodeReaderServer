@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DeleteDatabaseActivity">
+    tools:context=".DeleteDatabaseActivity"
+    android:padding="50dp">
 
     <ProgressBar
         android:id="@+id/pb_loading_indicator"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:layout_toRightOf="@+id/deleteBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
         android:layout_below="@id/selectDatabaseNameSpinner_delete"/>
 
     <TextView
@@ -17,13 +19,13 @@
         android:layout_height="wrap_content"
         android:hint="Select Database:"
         android:textSize="20sp"
-        android:textStyle="bold|italic" />
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/selectDatabaseNameSpinner_delete"
         android:layout_below="@+id/note_export"
         android:layout_width="300dp"
-        android:layout_height="49dp"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
     <Button
@@ -31,9 +33,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/selectDatabaseNameSpinner_delete"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/pb_loading_indicator"
         android:text="Delete"
         android:textAlignment="center"
-        android:onClick="onClickDeleteDbBtn"/>
+        android:onClick="onClickDeleteDbBtn"
+        android:background="@drawable/custom_button"
+        android:textColor="#ffffff"/>
 
 </RelativeLayout>

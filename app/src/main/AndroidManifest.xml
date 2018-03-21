@@ -13,20 +13,40 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat">
-        <activity android:name=".MainActivity">
+        android:theme="@style/MyTheme">
+        <activity
+            android:name=".FrontActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AttendanceActivity" />
-        <activity android:name=".StartAttendanceActivity" />
-        <activity android:name=".DatabaseImportActivity" />
-        <activity android:name=".DatabaseExportActivity" />
-        <activity android:name=".DeleteDatabaseActivity" />
-        <activity android:name=".DuplicateCheckActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/MyTheme">
+
+        </activity>
+        <activity
+            android:name=".AttendanceActivity"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".StartAttendanceActivity"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".DatabaseImportActivity"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".DatabaseExportActivity"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".DeleteDatabaseActivity"
+            android:theme="@style/MyTheme" />
+        <activity
+            android:name=".DuplicateCheckActivity"
+            android:theme="@style/MyTheme" />
+
     </application>
 
 </manifest>

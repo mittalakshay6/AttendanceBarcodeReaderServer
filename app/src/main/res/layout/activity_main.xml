@@ -2,44 +2,78 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="200dp"
-    tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/exportBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClickExportDb"
-        android:text="@string/exportBtn" />
+    android:layout_height="match_parent"
+    android:paddingTop="100dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    tools:context=".MainActivity"
+    android:theme="@style/MyTheme">
 
     <Button
         android:id="@+id/importBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/ic_move_to_inbox_black_36dp"
+        android:onClick="onClickImportDb" />
+    <TextView
+        android:id="@+id/importTextView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Import Database"
+        android:layout_below="@id/importBtn" />
+
+    <Button
+        android:id="@+id/exportBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/importBtn"
+        android:layout_alignBottom="@+id/importBtn"
+        android:layout_alignStart="@+id/deleteDbBtn"
+        android:background="@drawable/ic_unarchive_black_36dp"
+        android:onClick="onClickExportDb" />
+
+    <TextView
+        android:id="@+id/exportTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/exportBtn"
         android:layout_below="@+id/exportBtn"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClickImportDb"
-        android:text="@string/importBtn" />
+        android:text="Export Database" />
 
     <Button
         android:id="@+id/takeAttendanceBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/importBtn"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/importTextView"
         android:onClick="onClickTakeAttendance"
-        android:text="@string/takeAttendanceBtn" />
+        android:layout_marginTop="40dp"
+        android:background="@drawable/ic_face_black_36dp"/>
+    <TextView
+        android:id="@+id/takeAttendanceTextView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Take Attendence"
+        android:layout_below="@id/takeAttendanceBtn" />
 
     <Button
         android:id="@+id/deleteDbBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/takeAttendanceBtn"
-        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@id/takeAttendanceBtn"
+        android:layout_below="@id/exportTextView"
         android:onClick="onClickDeleteDbBtn"
-        android:text="Delete Database" />
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="60dp"
+        android:background="@drawable/ic_delete_black_36dp"/>
 
+    <TextView
+        android:id="@+id/deleteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/exportTextView"
+        android:layout_below="@+id/deleteDbBtn"
+        android:text="Delete Database" />
 
 </RelativeLayout>
