@@ -51,8 +51,18 @@ public class DatabaseQueries {
                 "WHERE " + DatabaseContract.DatabaseEntry.COL_REGNO + " == " + regNum;
     }
 
+    public String getSQL_MARK_A(String tableName, String regNum){
+        String date = getDate();
+        return "UPDATE " + tableName + " SET " + date + " = 'A' " +
+                "WHERE " + DatabaseContract.DatabaseEntry.COL_REGNO + " == " + regNum;
+    }
+
     public String getIS_REG_NUM_AVAILABLE(String tableName, String regNum){
         return "SELECT RegNum FROM " +tableName+" WHERE "+DatabaseContract.DatabaseEntry.COL_REGNO + " == "+regNum;
+    }
+
+    public String getStatusOfRegNum(String tableName, String regNum){
+        return "SELECT "+getDate()+" FROM "+tableName+" WHERE "+DatabaseContract.DatabaseEntry.COL_REGNO+" == "+regNum;
     }
 
     public void setTableName(String tableName) {

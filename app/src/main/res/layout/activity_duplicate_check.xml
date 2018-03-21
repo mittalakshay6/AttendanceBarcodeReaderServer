@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DuplicateCheckActivity">
+    tools:context="com.example.akshay.attendancebarcodereaderserver.DuplicateCheckActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <ProgressBar
+        android:id="@+id/pb_loading_indicator"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignTop="@+id/markAbsentBtn"
+        android:layout_toEndOf="@+id/markAbsentBtn" />
+
+    <ListView
+        android:id="@+id/proxyRegNoList"
+        android:layout_width="match_parent"
+        android:layout_height="390dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:choiceMode="multipleChoice"
+        android:layout_marginStart="0dp" />
+    <Button
+        android:id="@+id/doneBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Done"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:onClick="onClickDoneBtn" />
+
+    <Button
+        android:id="@+id/markAbsentBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/doneBtn"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickMarkAbsentBtn"
+        android:text="Mark Absent"
+        android:textColor="@color/colorPrimaryDark"/>
+
+
+</RelativeLayout>

@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         takeAttendanceBtn = findViewById(R.id.takeAttendanceBtn);
         importDb = findViewById(R.id.importBtn);
         exportDb = findViewById(R.id.exportBtn);
-        String[] permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE};
+        String[] permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE};
 
         ActivityCompat.requestPermissions(this, permissions, 0);
 
