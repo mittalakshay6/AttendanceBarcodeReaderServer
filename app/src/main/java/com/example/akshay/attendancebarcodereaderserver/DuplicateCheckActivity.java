@@ -47,6 +47,7 @@ public class DuplicateCheckActivity extends AppCompatActivity {
         dbname = intent.getStringExtra(StartAttendanceActivity.DB_NAME);
 
         progressBar = findViewById(R.id.pb_loading_indicator);
+        progressBar.setVisibility(View.INVISIBLE);
 
         lv= findViewById(R.id.proxyRegNoList);
         proxyListAdapter = new ArrayAdapter<String>(this, 0, proxies){
