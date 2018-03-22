@@ -32,6 +32,5 @@
 - [x] server side function for manual attendance privilege
 - [ ] send varied reply to client
 - [ ] handle different replies at client
-- [ ] done button on all screens
 - [x] handle device rotate data lost case
 - [x] done button on all activities
