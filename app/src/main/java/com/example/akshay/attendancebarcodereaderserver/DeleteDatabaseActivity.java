@@ -52,6 +52,10 @@ public class DeleteDatabaseActivity extends AppCompatActivity implements Adapter
     }
 
     public void onClickDeleteDbBtn(View view){
+        if(selected_dbName==null){
+            Toast.makeText(this, "No database selected", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Log.d(TAG, selected_dbName);
         boolean result = this.deleteDatabase(selected_dbName);
         if(result){

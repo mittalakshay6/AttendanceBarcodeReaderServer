@@ -34,6 +34,9 @@ public class StartAttendanceActivity extends AppCompatActivity {
     public static ArrayList<String> proxies;
     private final String TAG = "StartAttendanceActivity";
     public static final String PROXIES_LIST = "DuplicateChecker_Object";
+    public static final Character SEND_SUCCESS = 'S';
+    public static final Character SEND_FAIL_INVALID = 'I';
+    public static final Character SEND_SUCCESS_PROXY = 'P';
     public static final String DB_NAME="DatabaseName";
     public static final String TABLE_NAME="TableName";
     private ListView lv;
@@ -130,7 +133,7 @@ public class StartAttendanceActivity extends AppCompatActivity {
                     DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
                     Cursor cursor = sqLiteDatabase.rawQuery(databaseQueries.getIS_REG_NUM_AVAILABLE(databaseQueries.getTableName(), data), null);
                     if(cursor.getCount()==0){
-                        dataOutputStream.writeBoolean(false);
+                        dataOutputStream.writeChar(SEND_FAIL_INVALID);
                         StartAttendanceActivity.this.runOnUiThread(new Runnable() {
                             public void run() {
                                 if(!regNoData.contains(showData+"_invalid")) {
@@ -141,7 +144,6 @@ public class StartAttendanceActivity extends AppCompatActivity {
                         });
                     }
                     else {
-                        dataOutputStream.writeBoolean(true);
                         boolean isProxy = duplicateChecker.checkThisINetAddress(socket.getInetAddress());
                         if(isProxy){
                             Cursor c = sqLiteDatabase.rawQuery(databaseQueries.getStatusOfRegNum(databaseQueries.getTableName(), data), null);
@@ -151,6 +153,7 @@ public class StartAttendanceActivity extends AppCompatActivity {
 
                             if(proxy.equals("A")) {
                                 sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
+                                dataOutputStream.writeChar(SEND_SUCCESS_PROXY);
                                 StartAttendanceActivity.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -169,9 +172,13 @@ public class StartAttendanceActivity extends AppCompatActivity {
                                     }
                                 });
                             }
+                            else{
+                                dataOutputStream.writeChar(SEND_SUCCESS);
+                            }
                         }
                         else {
                             sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
+                            dataOutputStream.writeChar(SEND_SUCCESS);
                             StartAttendanceActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
