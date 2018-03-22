@@ -73,4 +73,13 @@
         android:onClick="onClickMarkAllPBtn"
         android:text="ALL Present" />
 
+    <Button
+        android:id="@+id/doneBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/ic_check_circle_white_36dp"
+        android:onClick="onClickDoneBtn"
+        android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>

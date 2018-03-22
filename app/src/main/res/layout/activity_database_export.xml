@@ -47,25 +47,27 @@
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
     <ProgressBar
         android:id="@+id/pb_loading_indicator"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@id/startBtn_export"/>
+        android:layout_alignBottom="@+id/startBtn_export"
+        android:layout_toEndOf="@+id/startBtn_export" />
 
 
     <Button
         android:id="@+id/startBtn_export"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/fileNameView_export"
         android:layout_centerHorizontal="true"
-        android:layout_above="@id/destination"
+        android:background="@drawable/custom_button"
+        android:onClick="onClickStartBtn_export"
         android:text="@string/start"
         android:textAlignment="center"
-        android:onClick="onClickStartBtn_export"
-        android:background="@drawable/custom_button"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff" />
     <TextView
         android:id="@+id/destination"
         android:layout_width="wrap_content"
@@ -73,6 +75,15 @@
         android:layout_alignParentBottom="true"
         android:hint="Database will be exported to the AttendanceExcelSheets folder."
         android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/doneBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/destination"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ic_check_circle_white_36dp"
+        android:onClick="onClickDoneBtn" />
 
 
 </RelativeLayout>

@@ -200,4 +200,7 @@ public class MarkManuallyActivity extends AppCompatActivity {
         sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_All_P(databaseQueries.getTableName(), selectedDate));
         Toast.makeText(this, "All Students marked present", Toast.LENGTH_SHORT).show();
     }
+    public void onClickDoneBtn(View view) {
+        finish();
+    }
 }

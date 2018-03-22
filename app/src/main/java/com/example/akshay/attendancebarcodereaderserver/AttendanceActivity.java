@@ -120,4 +120,8 @@ public class AttendanceActivity extends AppCompatActivity implements AdapterView
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+    public void onClickDoneBtn(View view){
+        finish();
+    }
 }

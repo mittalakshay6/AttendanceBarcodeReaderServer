@@ -17,7 +17,8 @@
         android:theme="@style/MyTheme">
         <activity
             android:name=".FrontActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,26 +27,34 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/MyTheme"></activity>
+            android:theme="@style/MyTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AttendanceActivity"
-            android:theme="@style/MyTheme" />
+            android:theme="@style/MyTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".StartAttendanceActivity"
-            android:theme="@style/MyTheme" />
+            android:theme="@style/MyTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DatabaseImportActivity"
-            android:theme="@style/MyTheme" />
+            android:theme="@style/MyTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DatabaseExportActivity"
-            android:theme="@style/MyTheme" />
+            android:theme="@style/MyTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DeleteDatabaseActivity"
-            android:theme="@style/MyTheme" />
+            android:theme="@style/MyTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".DuplicateCheckActivity"
-            android:theme="@style/MyTheme" />
-        <activity android:name=".MarkManuallyActivity"></activity>
+            android:theme="@style/MyTheme"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MarkManuallyActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

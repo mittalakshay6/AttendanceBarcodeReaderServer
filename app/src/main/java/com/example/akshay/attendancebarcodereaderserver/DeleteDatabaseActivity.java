@@ -79,4 +79,7 @@ public class DeleteDatabaseActivity extends AppCompatActivity implements Adapter
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
+    public void onClickDoneBtn(View view){
+        finish();
+    }
 }
