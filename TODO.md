@@ -34,4 +34,4 @@
 - [ ] handle different replies at client
 - [ ] done button on all screens
 - [x] handle device rotate data lost case
-- [ ] done button on all activities
+- [x] done button on all activities
