@@ -31,6 +31,7 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
     private String fileName;
     private EditText fileNameView_export;
     private ProgressBar progressBar;
+    private SQLiteDatabase sqLiteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
             ArrayList<CharSequence> fileArrayList = new ArrayList<>();
             ArrayAdapter<CharSequence> fileArrayAdapter;
             for (int i = 0; i < files.length; i++) {
-                if (files[i].getName().endsWith("db")) {
+                if (files[i].getName().endsWith("db") && !files[i].getName().equals("start.db")) {
                     fileArrayList.add(files[i].getName());
                 }
             }
@@ -97,7 +98,7 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
 //            Toast.makeText(this, selected_dbName, Toast.LENGTH_SHORT).show();
             DatabaseHelper databaseHelper = new DatabaseHelper(this, selected_dbName);
             databaseHelper.setTableName("sqlite_master");
-            SQLiteDatabase sqLiteDatabase = databaseHelper.getReadableDatabase();
+            sqLiteDatabase = databaseHelper.getReadableDatabase();
             Cursor cursor = sqLiteDatabase.rawQuery(databaseQueries.getSQL_RETURN_ALL_TABLES(), null);
             String[] strings = cursor.getColumnNames();
             ArrayList<CharSequence> table_names = new ArrayList<>();
@@ -122,4 +123,5 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }

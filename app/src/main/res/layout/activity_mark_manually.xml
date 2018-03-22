@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MarkManuallyActivity">
+
+    <EditText
+        android:id="@+id/regNoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp"
+        android:hint="Reg. No."
+        android:textSize="22sp" />
+
+    <Button
+        android:id="@+id/datePickerBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="239dp"
+        android:onClick="showDatePickerDialog"
+        android:text="Set Date" />
+
+    <TextView
+        android:id="@+id/dateView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="167dp"
+        android:text=""
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/markPBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="216dp"
+        android:layout_toStartOf="@+id/datePickerBtn"
+        android:onClick="onClickMarkPBtn"
+        android:text="Mark Present" />
+
+    <Button
+        android:id="@+id/markABtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/markPBtn"
+        android:layout_toEndOf="@+id/datePickerBtn"
+        android:onClick="onClickMarkABtn"
+        android:text="Mark Absent" />
+
+    <Button
+        android:id="@+id/markAllABtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/dateView"
+        android:layout_alignTop="@+id/markAllPBtn"
+        android:onClick="onClickMarkAllABtn"
+        android:text="All Absent" />
+
+    <Button
+        android:id="@+id/markAllPBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="134dp"
+        android:layout_toStartOf="@+id/dateView"
+        android:onClick="onClickMarkAllPBtn"
+        android:text="ALL Present" />
+
+</RelativeLayout>

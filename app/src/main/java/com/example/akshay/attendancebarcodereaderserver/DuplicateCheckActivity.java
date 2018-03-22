@@ -1,6 +1,7 @@
 package com.example.akshay.attendancebarcodereaderserver;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -42,7 +43,7 @@ public class DuplicateCheckActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
         confirmedProxies = new ArrayList<>();
-        proxies = intent.getStringArrayListExtra(StartAttendanceActivity.PROXIES_LIST);
+        proxies = StartAttendanceActivity.proxies;
         tableName = intent.getStringExtra(StartAttendanceActivity.TABLE_NAME);
         dbname = intent.getStringExtra(StartAttendanceActivity.DB_NAME);
 
@@ -82,15 +83,32 @@ public class DuplicateCheckActivity extends AppCompatActivity {
         finish();
     }
     public void onClickMarkAbsentBtn(View view){
+        boolean marked = false;
         progressBar.setVisibility(View.VISIBLE);
         DatabaseQueries databaseQueries = DatabaseQueries.getInstance();
-        DatabaseHelper databaseHelper = new DatabaseHelper(this, dbname);
-        databaseHelper.setTableName(tableName);
-        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
-        for(int i = 0; i<confirmedProxies.size();i++){
-            sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_A(tableName, confirmedProxies.remove(i)+".0"));
+        assert DatabaseObjects.isSqliteDatabaseWritableSet();
+        SQLiteDatabase sqLiteDatabase = DatabaseObjects.getSqLiteDatabaseWritable();
+        for(String proxy_in_process : confirmedProxies){
+            Cursor c = sqLiteDatabase.rawQuery(databaseQueries.getStatusOfRegNum(databaseQueries.getTableName(), proxy_in_process+".0"), null);
+            c.moveToNext();
+            String status = c.getString(0);
+            c.close();
+            if(status.equals("P")){
+                marked = true;
+                sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_A(databaseQueries.getTableName(), proxy_in_process+".0"));
+                StartAttendanceActivity.numMarkedP--;
+                StartAttendanceActivity.numAttView.setText(String.valueOf(StartAttendanceActivity.numMarkedP));
+            }
+            proxies.remove(proxy_in_process);
         }
+        confirmedProxies.clear();
+        proxyListAdapter.notifyDataSetChanged();
         progressBar.setVisibility(View.INVISIBLE);
-        Toast.makeText(this, "Selected students have been marked as absent", Toast.LENGTH_SHORT).show();
+        if(marked){
+            Toast.makeText(this, "Selected students have been marked as absent", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "Already marked absent", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -20,31 +20,16 @@ public class MainActivity extends AppCompatActivity {
     Button takeAttendanceBtn;
     Button importDb;
     Button exportDb;
+    private SQLiteDatabase sqLiteDatabase;
     private final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
-
-
-
-
-
-
         DatabaseHelper databaseHelper = new DatabaseHelper(this, "start.db");
         databaseHelper.setTableName("testTable");
-        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
-
-
-
-
-
-
-
+        sqLiteDatabase = databaseHelper.getWritableDatabase();
 
         takeAttendanceBtn = findViewById(R.id.takeAttendanceBtn);
         importDb = findViewById(R.id.importBtn);
@@ -53,15 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityCompat.requestPermissions(this, permissions, 0);
 
-
         File dir = new File(Environment.getExternalStorageDirectory().toString()+File.separator+"AttendanceExcelSheets");
-        if(!dir.exists()) {
-            dir.mkdirs();
-            Log.d(TAG, "Directory created");
-        }
-        else{
-            Log.d(TAG, "Directory Created");
-        }
+        dir.mkdir();
     }
     public void onClickTakeAttendance(View view){
         Intent intent = new Intent(this, AttendanceActivity.class);
@@ -79,4 +57,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DeleteDatabaseActivity.class);
         startActivity(intent);
     }
+
 }

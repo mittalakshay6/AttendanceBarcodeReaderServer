@@ -26,6 +26,17 @@
         android:textColor="#ffffff" />
 
     <Button
+        android:id="@+id/manualMarkActivityStartBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/duplicateCheckBtn"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickManualMarkBtn"
+        android:text="Mark Manually"
+        android:background="@drawable/custom_button"
+        android:textColor="#ffffff"/>
+
+    <Button
         android:id="@+id/duplicateCheckBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,8 +51,9 @@
         android:id="@+id/numAttText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/duplicateCheckBtn"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/regNoList"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="44dp"
         android:text="0"
         android:textSize="50sp" />
 
@@ -49,10 +61,10 @@
         android:id="@+id/ipAddressText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/numAttText"
+        android:layout_below="@+id/regNoList"
         android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:text="IP Address"/>
+        android:text="IP Address"
+        android:textSize="20sp" />
 
 
 </RelativeLayout>

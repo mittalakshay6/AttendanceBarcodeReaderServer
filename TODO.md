@@ -29,5 +29,6 @@
 - [x] progress for database export
 - [x] progress for connection setup
 - [x] show number of attendances marked
-- [ ] server side function for manual attendance privilege
+- [x] server side function for manual attendance privilege
 - [ ] handle device rotate data lost case
+- [ ] done button on all activities

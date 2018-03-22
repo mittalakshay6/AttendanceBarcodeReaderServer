@@ -32,8 +32,6 @@ public class DatabaseImporter {
         return isImported;
     }
 
-    //TODO: SQLite2Excel library itself takes care of multithreading, hence may not be needed here.
-
     public void importDatabase(String path){
         isImported=false;
         file = new File(path);

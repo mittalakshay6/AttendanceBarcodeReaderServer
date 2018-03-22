@@ -51,10 +51,28 @@ public class DatabaseQueries {
                 "WHERE " + DatabaseContract.DatabaseEntry.COL_REGNO + " == " + regNum;
     }
 
+    public String getSQL_MARK_P(String tableName, String regNum, String date) {
+        return "UPDATE " + tableName + " SET " + date + " = 'P' " +
+                "WHERE " + DatabaseContract.DatabaseEntry.COL_REGNO + " == " + regNum;
+    }
+
     public String getSQL_MARK_A(String tableName, String regNum){
         String date = getDate();
         return "UPDATE " + tableName + " SET " + date + " = 'A' " +
                 "WHERE " + DatabaseContract.DatabaseEntry.COL_REGNO + " == " + regNum;
+    }
+
+    public String getSQL_MARK_A(String tableName, String regNum, String date){
+        return "UPDATE " + tableName + " SET " + date + " = 'A' " +
+                "WHERE " + DatabaseContract.DatabaseEntry.COL_REGNO + " == " + regNum;
+    }
+
+    public String getSQL_MARK_All_A(String tableName, String date){
+        return "UPDATE " + tableName + " SET " + date + " = 'A' ";
+    }
+
+    public String getSQL_MARK_All_P(String tableName, String date){
+        return "UPDATE " + tableName + " SET " + date + " = 'P' ";
     }
 
     public String getIS_REG_NUM_AVAILABLE(String tableName, String regNum){

@@ -30,8 +30,8 @@ import java.util.ArrayList;
 
 public class StartAttendanceActivity extends AppCompatActivity {
 
-    private ArrayList<String> markedP;
-    private ArrayList<String> proxies;
+    public static int numMarkedP;
+    public static ArrayList<String> proxies;
     private final String TAG = "StartAttendanceActivity";
     public static final String PROXIES_LIST = "DuplicateChecker_Object";
     public static final String DB_NAME="DatabaseName";
@@ -47,7 +47,7 @@ public class StartAttendanceActivity extends AppCompatActivity {
     private DuplicateChecker duplicateChecker;
     private String dbname;
     private String tableName;
-    private TextView numAttView;
+    public static TextView numAttView;
     private TextView ipAddrView;
 
     @Override
@@ -61,7 +61,7 @@ public class StartAttendanceActivity extends AppCompatActivity {
         numAttView = findViewById(R.id.numAttText);
         ipAddrView = findViewById(R.id.ipAddressText);
         proxies = new ArrayList<>();
-        markedP = new ArrayList<>();
+        numMarkedP = 0;
 
         duplicateChecker = new DuplicateChecker();
         WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(WIFI_SERVICE);
@@ -69,30 +69,18 @@ public class StartAttendanceActivity extends AppCompatActivity {
         int ip = wifiInfo.getIpAddress();
         String ipAddress = Formatter.formatIpAddress(ip);
         ipAddrView.setText(ipAddress);
-//        new AsyncTask<Void, Void, Void>() {
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//                try {
-//                    InetAddress inetAddress = InetAddress.getLocalHost();
-//                    final String ipAddress = inetAddress.getHostAddress();
-//                    StartAttendanceActivity.this.runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            ipAddrView.setText(ipAddress);
-//                        }
-//                    });
-//                } catch (UnknownHostException e) {
-//                    Log.e(TAG, "UnknownHostException: "+e.getMessage());
-//                }
-//                return null;
-//            }
-//        }.execute();
 
         databaseQueries=DatabaseQueries.getInstance();
+        DatabaseObjects.setDatabaseQueries(databaseQueries);
+
         databaseHelper = new DatabaseHelper(this, dbname);
         databaseHelper.setTableName(tableName);
+        DatabaseObjects.setDatabaseHelper(databaseHelper);
+
         Toast.makeText(this, "Database loading started", Toast.LENGTH_SHORT);
         sqLiteDatabase = databaseHelper.getWritableDatabase();
+        DatabaseObjects.setSqLiteDatabaseWritable(sqLiteDatabase);
+
         try {
             sqLiteDatabase.execSQL(databaseQueries.getSQL_CREATE_TODAY_COL(databaseQueries.getTableName()));
         }
@@ -155,28 +143,29 @@ public class StartAttendanceActivity extends AppCompatActivity {
                     else {
                         dataOutputStream.writeBoolean(true);
                         boolean isProxy = duplicateChecker.checkThisINetAddress(socket.getInetAddress());
-                        Log.d(TAG, String.valueOf(isProxy));
                         if(isProxy){
                             Cursor c = sqLiteDatabase.rawQuery(databaseQueries.getStatusOfRegNum(databaseQueries.getTableName(), data), null);
                             c.moveToNext();
                             String proxy = c.getString(0);
                             c.close();
-                            Log.d(TAG, proxy);
-                            Log.d(TAG, proxy);
 
                             if(proxy.equals("A")) {
                                 sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
-                                proxies.add(showData);
-                                Log.d(TAG, "Proxy(showData) " + showData);
                                 StartAttendanceActivity.this.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if(!regNoData.contains(showData + "_suspect")) {
-                                            regNoData.add(showData + "_suspect");
-                                            adapter.notifyDataSetChanged();
-                                            markedP.add(showData);
-                                            numAttView.setText(String.valueOf(markedP.size()));
-                                        }
+                                        numMarkedP++;
+                                        numAttView.setText(String.valueOf(numMarkedP));
+                                    }
+                                });
+                                if(!proxies.contains(showData)) {
+                                    proxies.add(showData);
+                                }
+                                StartAttendanceActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        regNoData.add(showData + "_suspect");
+                                        adapter.notifyDataSetChanged();
                                     }
                                 });
                             }
@@ -184,12 +173,17 @@ public class StartAttendanceActivity extends AppCompatActivity {
                         else {
                             sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
                             StartAttendanceActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    numMarkedP++;
+                                    numAttView.setText(String.valueOf(numMarkedP));
+                                }
+                            });
+                            StartAttendanceActivity.this.runOnUiThread(new Runnable() {
                                 public void run() {
                                     if(!regNoData.contains(showData)) {
                                         regNoData.add(showData);
                                         adapter.notifyDataSetChanged();
-                                        markedP.add(showData);
-                                        numAttView.setText(String.valueOf(markedP.size()));
                                     }
                                 }
                             });
@@ -215,4 +209,9 @@ public class StartAttendanceActivity extends AppCompatActivity {
         intent.putExtra(TABLE_NAME, tableName);
         startActivity(intent);
     }
+    public void onClickManualMarkBtn(View view){
+        Intent intent = new Intent(this, MarkManuallyActivity.class);
+        startActivity(intent);
+    }
+
 }

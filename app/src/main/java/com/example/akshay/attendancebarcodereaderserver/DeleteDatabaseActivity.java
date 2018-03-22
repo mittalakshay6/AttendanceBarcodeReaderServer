@@ -38,7 +38,7 @@ public class DeleteDatabaseActivity extends AppCompatActivity implements Adapter
             File[] files = file.listFiles();
             fileArrayList = new ArrayList<>();
             for (int i = 0; i < files.length; i++) {
-                if (files[i].getName().endsWith("db")) {
+                if (files[i].getName().endsWith("db") && !files[i].getName().equals("start.db")) {
                     fileArrayList.add(files[i].getName());
                 }
             }
@@ -49,15 +49,11 @@ public class DeleteDatabaseActivity extends AppCompatActivity implements Adapter
         catch(NullPointerException e){
             e.printStackTrace();
         }
-
     }
 
     public void onClickDeleteDbBtn(View view){
-        String filePath = null;
-        filePath = this.getDatabasePath("a").getParent()+File.separator+selected_dbName;
-        Log.d(TAG, "File Path: "+filePath);
-        File file = new File(filePath);
-        boolean result = file.delete();
+        Log.d(TAG, selected_dbName);
+        boolean result = this.deleteDatabase(selected_dbName);
         if(result){
             Log.d(TAG, "File Deleted successfully");
             fileArrayList.remove(selected_dbName);
@@ -68,6 +64,10 @@ public class DeleteDatabaseActivity extends AppCompatActivity implements Adapter
             Log.e(TAG, "Unable to delete file");
             Toast.makeText(this, "Cannot delete database", Toast.LENGTH_SHORT).show();
         }
+        if(fileArrayList.size()>0) {
+            selected_dbName = (String) fileArrayList.get(0);
+            Log.d(TAG, selected_dbName);
+        }
     }
 
     @Override
@@ -77,6 +77,6 @@ public class DeleteDatabaseActivity extends AppCompatActivity implements Adapter
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
+
 }
