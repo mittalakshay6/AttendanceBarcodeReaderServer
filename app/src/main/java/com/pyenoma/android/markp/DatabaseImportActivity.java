@@ -1,4 +1,4 @@
-package com.example.akshay.attendancebarcodereaderserver;
+package com.pyenoma.android.markp;
 
 import android.app.Activity;
 import android.content.Intent;

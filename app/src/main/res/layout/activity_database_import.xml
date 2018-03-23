@@ -8,7 +8,7 @@
     android:paddingRight="50dp"
     android:paddingBottom="50dp"
     android:orientation="vertical"
-    tools:context="com.example.akshay.attendancebarcodereaderserver.DatabaseImportActivity">
+    tools:context="com.pyenoma.android.markp.DatabaseImportActivity">
 
     <ProgressBar
         android:id="@+id/pb_loading_indicator"

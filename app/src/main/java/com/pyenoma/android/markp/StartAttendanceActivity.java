@@ -1,4 +1,4 @@
-package com.example.akshay.attendancebarcodereaderserver;
+package com.pyenoma.android.markp;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,8 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.akshay.attendancebarcodereaderserver.Connection.ConnectionManager;
-import com.example.akshay.attendancebarcodereaderserver.Connection.DataExchangeHelper;
+import com.pyenoma.android.markp.Connection.ConnectionManager;
+import com.pyenoma.android.markp.Connection.DataExchangeHelper;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

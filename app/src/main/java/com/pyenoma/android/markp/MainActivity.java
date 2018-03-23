@@ -1,4 +1,4 @@
-package com.example.akshay.attendancebarcodereaderserver;
+package com.pyenoma.android.markp;
 
 import android.Manifest;
 import android.content.Context;

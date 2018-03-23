@@ -1,4 +1,4 @@
-package com.example.akshay.attendancebarcodereaderserver.Connection;
+package com.pyenoma.android.markp.Connection;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import com.example.akshay.attendancebarcodereaderserver.R;
+import com.pyenoma.android.markp.R;
 
 public class ConnectionManager {
     private boolean doAccept;

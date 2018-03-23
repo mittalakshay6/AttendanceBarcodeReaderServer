@@ -1,4 +1,4 @@
-package com.example.akshay.attendancebarcodereaderserver;
+package com.pyenoma.android.markp;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
