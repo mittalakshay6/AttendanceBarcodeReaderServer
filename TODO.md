@@ -30,7 +30,7 @@
 - [x] progress for connection setup
 - [x] show number of attendances marked
 - [x] server side function for manual attendance privilege
-- [ ] send varied reply to client
-- [ ] handle different replies at client
+- [x] send varied reply to client
+- [x] handle different replies at client
 - [x] handle device rotate data lost case
 - [x] done button on all activities

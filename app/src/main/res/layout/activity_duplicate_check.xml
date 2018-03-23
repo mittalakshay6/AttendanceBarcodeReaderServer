@@ -28,7 +28,9 @@
         android:text="Done"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:onClick="onClickDoneBtn" />
+        android:onClick="onClickDoneBtn"
+        android:background="@drawable/custom_button"
+        android:textColor="#ffff"/>
 
     <Button
         android:id="@+id/markAbsentBtn"
@@ -38,7 +40,8 @@
         android:layout_centerHorizontal="true"
         android:onClick="onClickMarkAbsentBtn"
         android:text="Mark Absent"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:background="@drawable/custom_button"
+        android:textColor="#ffff"/>
 
 
 </RelativeLayout>
