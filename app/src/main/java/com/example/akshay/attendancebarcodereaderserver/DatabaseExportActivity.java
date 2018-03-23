@@ -2,6 +2,7 @@ package com.example.akshay.attendancebarcodereaderserver;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 public class DatabaseExportActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -88,6 +90,16 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
             return;
         }
         fileName=fileName+".xls";
+        String destination = Environment.getExternalStorageDirectory()+File.separator+"AttendanceExcelSheets"+File.separator;
+        File file = new File(destination);
+        File[] files = file.listFiles();
+        for(File existingFile : files){
+            String existingFileName = existingFile.getName();
+            if(existingFileName.equals(fileName)){
+                Toast.makeText(this, "File already exists", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
         Log.d(TAG, selected_dbName+selected_tableName);
         databaseExporter = new DatabaseExporter(this, selected_dbName, selected_tableName, fileName);
         progressBar.setVisibility(View.VISIBLE);

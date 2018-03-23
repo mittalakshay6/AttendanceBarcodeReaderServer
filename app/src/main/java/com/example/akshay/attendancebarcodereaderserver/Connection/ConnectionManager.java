@@ -12,13 +12,16 @@ import com.example.akshay.attendancebarcodereaderserver.R;
 
 public class ConnectionManager {
     private boolean doAccept;
-    private ServerSocket serverSocket;
+    private static ServerSocket serverSocket;
     private ArrayList<Socket> sockets;
     private static final int PORT = 1234;
 
     private final String TAG = "ConnectionManager";
 
     public boolean createServerSocket() {
+        if(ConnectionManager.serverSocket!=null){
+            return true;
+        }
         try {
             serverSocket = new ServerSocket(PORT);
             Log.d(TAG, "Server Socket creation successful");
@@ -51,6 +54,9 @@ public class ConnectionManager {
     }
     public void stopAccepting(){
         doAccept=false;
+        if(serverSocket==null){
+            return;
+        }
         try {
             serverSocket.close();
             Log.d(TAG, "Server Socket closed");
@@ -59,7 +65,6 @@ public class ConnectionManager {
         }
     }
 
-    //TODO Implement the method to serve the accepted sockets
 
     public Socket getSocket(){
         return sockets.remove(0);

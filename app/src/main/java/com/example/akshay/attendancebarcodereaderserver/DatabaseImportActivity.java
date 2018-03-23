@@ -115,6 +115,10 @@ public class DatabaseImportActivity extends AppCompatActivity {
                     uri = (Uri)data.getExtras().get("data");
                 }
                 String path = RealPathUtil.getRealPath(this, uri);
+                if(path==null){
+                    Toast.makeText(this, "Please import from internal storage", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 pathView.setText(path);
                 String extension = null;
                 if (path != null) {

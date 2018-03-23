@@ -80,7 +80,6 @@ public class StartAttendanceActivity extends AppCompatActivity {
         databaseHelper.setTableName(tableName);
         DatabaseObjects.setDatabaseHelper(databaseHelper);
 
-        Toast.makeText(this, "Database loading started", Toast.LENGTH_SHORT);
         sqLiteDatabase = databaseHelper.getWritableDatabase();
         DatabaseObjects.setSqLiteDatabaseWritable(sqLiteDatabase);
 
@@ -90,7 +89,6 @@ public class StartAttendanceActivity extends AppCompatActivity {
         catch (RuntimeException e){
             Log.e(TAG, e.getMessage());
         }
-        Toast.makeText(this, "Database loading Finished", Toast.LENGTH_SHORT);
 
         lv = findViewById(R.id.regNoList);
         regNoData = new ArrayList<>();
@@ -111,7 +109,7 @@ public class StartAttendanceActivity extends AppCompatActivity {
 
         this.connectionManager = new ConnectionManager();
         if(connectionManager.createServerSocket()){
-            Toast.makeText(getApplicationContext(), "ServerSocket Created", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Taking attendance...", Toast.LENGTH_SHORT).show();
             connectionManager.startAccepting();
             new Thread(){
                 @Override
@@ -120,6 +118,9 @@ public class StartAttendanceActivity extends AppCompatActivity {
                     servePendingConnections();
                 }
             }.start();
+        }
+        else{
+            Toast.makeText(this, "Cannot create socket, please restart the application", Toast.LENGTH_LONG).show();
         }
     }
     public void servePendingConnections(){

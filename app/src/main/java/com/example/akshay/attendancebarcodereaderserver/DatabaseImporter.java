@@ -46,7 +46,6 @@ public class DatabaseImporter {
                 @Override
                 public void onStart() {
                     listener.onStart();
-                    Toast.makeText(context, "Database import started", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override

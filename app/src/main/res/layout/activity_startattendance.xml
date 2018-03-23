@@ -12,17 +12,18 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp" />
+
     <Button
         android:id="@+id/stopAttendanceBtn"
-        android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Stop Attendence"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="5dp"
-        android:onClick="onClickStopAttendance"
         android:background="@drawable/custom_button"
+        android:onClick="onClickStopAttendance"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Stop Attendence"
         android:textColor="#ffffff" />
 
     <Button
@@ -33,6 +34,8 @@
         android:layout_centerHorizontal="true"
         android:onClick="onClickManualMarkBtn"
         android:text="Mark Manually"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:background="@drawable/custom_button"
         android:textColor="#ffffff"/>
 
@@ -42,10 +45,12 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/stopAttendanceBtn"
         android:layout_centerHorizontal="true"
+        android:background="@drawable/custom_button"
         android:onClick="onClickDuplicateCheckBtn"
         android:text="Suspected proxies"
-        android:background="@drawable/custom_button"
-        android:textColor="#ffffff"/>
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="#ffffff" />
 
     <TextView
         android:id="@+id/numAttText"

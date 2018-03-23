@@ -30,7 +30,6 @@ public class DatabaseExporter {
         sqLiteToExcel.exportSingleTable(tableName, fileName, new SQLiteToExcel.ExportListener() {
             @Override
             public void onStart() {
-                Toast.makeText(context, "Database Export Started", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Database export started");
             }
 
