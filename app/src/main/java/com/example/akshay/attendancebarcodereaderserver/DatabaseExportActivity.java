@@ -83,6 +83,10 @@ public class DatabaseExportActivity extends AppCompatActivity implements Adapter
             Toast.makeText(this, "Enter a file name", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(fileName.contains(" ")){
+            Toast.makeText(this, "No spaces are allowed in filename", Toast.LENGTH_SHORT).show();
+            return;
+        }
         fileName=fileName+".xls";
         Log.d(TAG, selected_dbName+selected_tableName);
         databaseExporter = new DatabaseExporter(this, selected_dbName, selected_tableName, fileName);

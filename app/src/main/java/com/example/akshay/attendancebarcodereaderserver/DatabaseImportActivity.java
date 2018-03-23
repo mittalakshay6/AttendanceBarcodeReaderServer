@@ -54,6 +54,14 @@ public class DatabaseImportActivity extends AppCompatActivity {
 
     public void onClickImportDatabaseBtn(View View){
         String fileName = databaseNameView.getText().toString();
+        if(fileName.isEmpty()){
+            Toast.makeText(this, "Enter a database name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(fileName.contains(" ")){
+            Toast.makeText(this, "No spaces are allowed in database name",Toast.LENGTH_SHORT).show();
+            return;
+        }
         ArrayList<CharSequence> fileArrayList = new ArrayList<>();
         String dir = this.getDatabasePath("a").getParent();
         File file = new File(dir);

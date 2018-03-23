@@ -55,6 +55,7 @@
         android:background="@drawable/custom_button"
         android:onClick="onClickImportDatabaseBtn"
         android:text="@string/importBtn"
+        android:inputType="text"
         android:textColor="#ffffff"/>
 
     <Button
