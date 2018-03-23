@@ -76,7 +76,7 @@ public class DatabaseQueries {
     }
 
     public String getIS_REG_NUM_AVAILABLE(String tableName, String regNum){
-        return "SELECT RegNum FROM " +tableName+" WHERE "+DatabaseContract.DatabaseEntry.COL_REGNO + " == "+regNum;
+        return "SELECT "+DatabaseContract.DatabaseEntry.COL_REGNO+" FROM " +tableName+" WHERE "+DatabaseContract.DatabaseEntry.COL_REGNO + " == "+regNum;
     }
 
     public String getStatusOfRegNum(String tableName, String regNum){

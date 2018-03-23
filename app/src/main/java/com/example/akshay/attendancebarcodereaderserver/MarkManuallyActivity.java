@@ -119,7 +119,7 @@ public class MarkManuallyActivity extends AppCompatActivity {
 
     public void onClickMarkABtn(View view){
         String regNo = regNoView.getText().toString();
-        if(regNo.length()!=8){
+        if(regNo.isEmpty()){
             Toast.makeText(this, "Set Registration Number first", Toast.LENGTH_SHORT).show();
             return;
         }
