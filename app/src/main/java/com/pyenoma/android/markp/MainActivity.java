@@ -32,14 +32,16 @@ public class MainActivity extends AppCompatActivity {
         exportDb = findViewById(R.id.exportBtn);
         String[] permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.ACCESS_WIFI_STATE};
 
-        ActivityCompat.requestPermissions(this, permissions, 0);
-
-        File dir = new File(Environment.getExternalStorageDirectory().toString()+File.separator+"AttendanceExcelSheets");
-        dir.mkdir();
-
-        DatabaseHelper databaseHelper = new DatabaseHelper(this, "start.db");
-        databaseHelper.setTableName("testTable");
-        sqLiteDatabase = databaseHelper.getWritableDatabase();
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, permissions, 0);
+        } else {
+            // Permission has already been granted
+            File dir = new File(Environment.getExternalStorageDirectory().toString()+File.separator+"AttendanceExcelSheets");
+            dir.mkdir();
+            DatabaseHelper databaseHelper = new DatabaseHelper(this, "start.db");
+            databaseHelper.setTableName("testTable");
+            sqLiteDatabase = databaseHelper.getWritableDatabase();
+        }
     }
     public void onClickTakeAttendance(View view){
         Intent intent = new Intent(this, AttendanceActivity.class);
@@ -56,5 +58,28 @@ public class MainActivity extends AppCompatActivity {
     public void onClickDeleteDbBtn(View view){
         Intent intent = new Intent(this, DeleteDatabaseActivity.class);
         startActivity(intent);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 0: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay!
+                    File dir = new File(Environment.getExternalStorageDirectory().toString()+File.separator+"AttendanceExcelSheets");
+                    dir.mkdir();
+                    DatabaseHelper databaseHelper = new DatabaseHelper(this, "start.db");
+                    databaseHelper.setTableName("testTable");
+                    sqLiteDatabase = databaseHelper.getWritableDatabase();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
     }
 }
