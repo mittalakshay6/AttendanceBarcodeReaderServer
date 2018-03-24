@@ -27,10 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(this, "start.db");
-        databaseHelper.setTableName("testTable");
-        sqLiteDatabase = databaseHelper.getWritableDatabase();
-
         takeAttendanceBtn = findViewById(R.id.takeAttendanceBtn);
         importDb = findViewById(R.id.importBtn);
         exportDb = findViewById(R.id.exportBtn);
@@ -40,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
         File dir = new File(Environment.getExternalStorageDirectory().toString()+File.separator+"AttendanceExcelSheets");
         dir.mkdir();
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(this, "start.db");
+        databaseHelper.setTableName("testTable");
+        sqLiteDatabase = databaseHelper.getWritableDatabase();
     }
     public void onClickTakeAttendance(View view){
         Intent intent = new Intent(this, AttendanceActivity.class);
@@ -57,5 +57,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DeleteDatabaseActivity.class);
         startActivity(intent);
     }
-
 }
