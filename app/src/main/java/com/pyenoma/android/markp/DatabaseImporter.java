@@ -14,8 +14,6 @@ public class DatabaseImporter {
     private ExcelToSQLite excelToSQLite;
     private boolean isImported;
     private Context context;
-    private SQLiteDatabase sqLiteDatabase;
-    private DatabaseHelper databaseHelper;
     private File file;
     private String databaseName;
     private DatabaseImporterListener listener;
@@ -54,11 +52,10 @@ public class DatabaseImporter {
                     isImported=true;
                     listener.onCompleted();
                 }
-
                 @Override
                 public void onError(Exception e) {
                     listener.onError();
-                    Toast.makeText(context, "Database import failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Database import failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

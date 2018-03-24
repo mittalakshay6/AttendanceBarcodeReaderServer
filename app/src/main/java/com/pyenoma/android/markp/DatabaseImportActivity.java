@@ -91,7 +91,7 @@ public class DatabaseImportActivity extends AppCompatActivity {
 
             @Override
             public void onError() {
-
+                progressBar.setVisibility(android.view.View.INVISIBLE);
             }
         };
         DatabaseImporter databaseImporter = new DatabaseImporter(this, databaseNameView.getText().toString()+".db", listener);
