@@ -6,6 +6,7 @@
     android:paddingTop="100dp"
     android:paddingLeft="50dp"
     android:paddingRight="50dp"
+    android:paddingBottom="100dp"
     tools:context=".MainActivity"
     android:theme="@style/MyTheme">
 

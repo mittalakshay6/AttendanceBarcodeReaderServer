@@ -12,5 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        />
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Created By Pyenoma"
+        android:textColor="#ffffff"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
