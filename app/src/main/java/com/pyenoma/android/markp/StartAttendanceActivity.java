@@ -40,7 +40,7 @@ public class StartAttendanceActivity extends AppCompatActivity {
     public static final String DB_NAME="DatabaseName";
     public static final String TABLE_NAME="TableName";
     private ListView lv;
-    private ArrayList<String> regNoData;
+    private static ArrayList<String> regNoData;
     private ConnectionManager connectionManager;
     private DataExchangeHelper dataExchangeHelper;
     private DatabaseHelper databaseHelper;
@@ -123,85 +123,94 @@ public class StartAttendanceActivity extends AppCompatActivity {
             Toast.makeText(this, "Cannot create socket, please restart the application", Toast.LENGTH_LONG).show();
         }
     }
+    public void serveSocket(Socket socket){
+        try {
+            DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
+            final String showData = dataInputStream.readUTF();
+            final String data = showData+".0";
+            DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
+            Cursor cursor = sqLiteDatabase.rawQuery(databaseQueries.getIS_REG_NUM_AVAILABLE(databaseQueries.getTableName(), data), null);
+            if(cursor.getCount()==0){
+                dataOutputStream.writeChar(SEND_FAIL_INVALID);
+                StartAttendanceActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        if(!regNoData.contains(showData+"_invalid")) {
+                            regNoData.add(showData + "_invalid");
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+            }
+            else {
+                boolean isProxy = duplicateChecker.checkThisINetAddress(socket.getInetAddress());
+                if(isProxy){
+                    Cursor c = sqLiteDatabase.rawQuery(databaseQueries.getStatusOfRegNum(databaseQueries.getTableName(), data), null);
+                    c.moveToNext();
+                    String proxy = c.getString(0);
+                    c.close();
+
+                    if(proxy.equals("A")) {
+                        sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
+                        StartAttendanceActivity.this.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                numMarkedP++;
+                                numAttView.setText(String.valueOf(numMarkedP));
+                                regNoData.add(showData + "_suspect");
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+                        dataOutputStream.writeChar(SEND_SUCCESS_PROXY);
+                        if(!proxies.contains(showData)) {
+                            proxies.add(showData);
+                        }
+//                                StartAttendanceActivity.this.runOnUiThread(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        regNoData.add(showData + "_suspect");
+//                                        adapter.notifyDataSetChanged();
+//                                    }
+//                                });
+                    }
+                    else{
+                        dataOutputStream.writeChar(SEND_SUCCESS);
+                    }
+                }
+                else {
+                    sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
+                    dataOutputStream.writeChar(SEND_SUCCESS);
+                    StartAttendanceActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            numMarkedP++;
+                            numAttView.setText(String.valueOf(numMarkedP));
+                        }
+                    });
+                    StartAttendanceActivity.this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            if(!regNoData.contains(showData)) {
+                                regNoData.add(showData);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void servePendingConnections(){
         while(connectionManager.isAccepting()){
             if(connectionManager.areAnyPendingConnections()){
-                Socket socket = connectionManager.getSocket();
-                try {
-                    DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
-                    final String showData = dataInputStream.readUTF();
-                    final String data = showData+".0";
-                    DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-                    Cursor cursor = sqLiteDatabase.rawQuery(databaseQueries.getIS_REG_NUM_AVAILABLE(databaseQueries.getTableName(), data), null);
-                    if(cursor.getCount()==0){
-                        dataOutputStream.writeChar(SEND_FAIL_INVALID);
-                        StartAttendanceActivity.this.runOnUiThread(new Runnable() {
-                            public void run() {
-                                if(!regNoData.contains(showData+"_invalid")) {
-                                    regNoData.add(showData + "_invalid");
-                                    adapter.notifyDataSetChanged();
-                                }
-                            }
-                        });
+                final Socket socket = connectionManager.getSocket();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        serveSocket(socket);
                     }
-                    else {
-                        boolean isProxy = duplicateChecker.checkThisINetAddress(socket.getInetAddress());
-                        if(isProxy){
-                            Cursor c = sqLiteDatabase.rawQuery(databaseQueries.getStatusOfRegNum(databaseQueries.getTableName(), data), null);
-                            c.moveToNext();
-                            String proxy = c.getString(0);
-                            c.close();
-
-                            if(proxy.equals("A")) {
-                                sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
-                                dataOutputStream.writeChar(SEND_SUCCESS_PROXY);
-                                StartAttendanceActivity.this.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        numMarkedP++;
-                                        numAttView.setText(String.valueOf(numMarkedP));
-                                    }
-                                });
-                                if(!proxies.contains(showData)) {
-                                    proxies.add(showData);
-                                }
-                                StartAttendanceActivity.this.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        regNoData.add(showData + "_suspect");
-                                        adapter.notifyDataSetChanged();
-                                    }
-                                });
-                            }
-                            else{
-                                dataOutputStream.writeChar(SEND_SUCCESS);
-                            }
-                        }
-                        else {
-                            sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_P(databaseQueries.getTableName(), data));
-                            dataOutputStream.writeChar(SEND_SUCCESS);
-                            StartAttendanceActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    numMarkedP++;
-                                    numAttView.setText(String.valueOf(numMarkedP));
-                                }
-                            });
-                            StartAttendanceActivity.this.runOnUiThread(new Runnable() {
-                                public void run() {
-                                    if(!regNoData.contains(showData)) {
-                                        regNoData.add(showData);
-                                        adapter.notifyDataSetChanged();
-                                    }
-                                }
-                            });
-                        }
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
+                }).start();
             }
         }
     }

@@ -180,6 +180,8 @@ public class MarkManuallyActivity extends AppCompatActivity {
         colCursor.close();
         sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_All_A(databaseQueries.getTableName(), selectedDate));
         Toast.makeText(this, "All students marked Absent", Toast.LENGTH_SHORT).show();
+        StartAttendanceActivity.numMarkedP=0;
+        StartAttendanceActivity.numAttView.setText(String.valueOf(StartAttendanceActivity.numMarkedP));
     }
     public void onClickMarkAllPBtn(View view){
         if(selectedDate==null){
