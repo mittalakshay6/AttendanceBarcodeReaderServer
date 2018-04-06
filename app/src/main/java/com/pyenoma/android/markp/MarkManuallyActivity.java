@@ -31,7 +31,7 @@ public class MarkManuallyActivity extends AppCompatActivity {
         dateView = findViewById(R.id.dateView);
         regNoView = findViewById(R.id.regNoView);
         dateView.setVisibility(View.INVISIBLE);
-
+        selectedDate=null;
     }
 
     public static class DatePickerFragment extends DialogFragment
@@ -182,6 +182,7 @@ public class MarkManuallyActivity extends AppCompatActivity {
         Toast.makeText(this, "All students marked Absent", Toast.LENGTH_SHORT).show();
         StartAttendanceActivity.numMarkedP=0;
         StartAttendanceActivity.numAttView.setText(String.valueOf(StartAttendanceActivity.numMarkedP));
+        StartAttendanceActivity.regNoData.clear();
     }
     public void onClickMarkAllPBtn(View view){
         if(selectedDate==null){
@@ -201,6 +202,9 @@ public class MarkManuallyActivity extends AppCompatActivity {
         colCursor.close();
         sqLiteDatabase.execSQL(databaseQueries.getSQL_MARK_All_P(databaseQueries.getTableName(), selectedDate));
         Toast.makeText(this, "All Students marked present", Toast.LENGTH_SHORT).show();
+        StartAttendanceActivity.numMarkedP=0;
+        StartAttendanceActivity.numAttView.setText(String.valueOf(StartAttendanceActivity.numMarkedP));
+        StartAttendanceActivity.regNoData.clear();
     }
     public void onClickDoneBtn(View view) {
         finish();

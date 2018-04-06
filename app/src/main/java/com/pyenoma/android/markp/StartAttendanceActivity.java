@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -40,9 +41,8 @@ public class StartAttendanceActivity extends AppCompatActivity {
     public static final String DB_NAME="DatabaseName";
     public static final String TABLE_NAME="TableName";
     private ListView lv;
-    private static ArrayList<String> regNoData;
-    private ConnectionManager connectionManager;
-    private DataExchangeHelper dataExchangeHelper;
+    public static ArrayList<String> regNoData;
+    public ConnectionManager connectionManager;
     private DatabaseHelper databaseHelper;
     private DatabaseQueries databaseQueries;
     private SQLiteDatabase sqLiteDatabase;
@@ -123,6 +123,22 @@ public class StartAttendanceActivity extends AppCompatActivity {
             Toast.makeText(this, "Cannot create socket, please restart the application", Toast.LENGTH_LONG).show();
         }
     }
+
+    public void servePendingConnections(){
+        while(connectionManager.isAccepting()){
+            if(connectionManager.areAnyPendingConnections()){
+                final Socket socket = connectionManager.getSocket();
+                if(socket!=null) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            serveSocket(socket);
+                        }
+                    }).start();
+                }
+            }
+        }
+    }
     public void serveSocket(Socket socket){
         try {
             DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
@@ -201,19 +217,6 @@ public class StartAttendanceActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    public void servePendingConnections(){
-        while(connectionManager.isAccepting()){
-            if(connectionManager.areAnyPendingConnections()){
-                final Socket socket = connectionManager.getSocket();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        serveSocket(socket);
-                    }
-                }).start();
-            }
-        }
-    }
     public void onClickStopAttendance(View view){
         connectionManager.stopAccepting();
         sqLiteDatabase.close();
@@ -230,5 +233,4 @@ public class StartAttendanceActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MarkManuallyActivity.class);
         startActivity(intent);
     }
-
 }

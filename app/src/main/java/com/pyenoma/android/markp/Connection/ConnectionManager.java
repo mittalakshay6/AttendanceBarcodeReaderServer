@@ -19,9 +19,9 @@ public class ConnectionManager {
     private final String TAG = "ConnectionManager";
 
     public boolean createServerSocket() {
-        if(ConnectionManager.serverSocket!=null){
-            return true;
-        }
+//        if(ConnectionManager.serverSocket!=null){
+//            return true;
+//        }
         try {
             serverSocket = new ServerSocket(PORT);
             Log.d(TAG, "Server Socket creation successful");
@@ -67,7 +67,10 @@ public class ConnectionManager {
 
 
     public Socket getSocket(){
-        return sockets.remove(0);
+        if(!sockets.isEmpty())
+            return sockets.remove(0);
+        else
+            return null;
     }
     public boolean areAnyPendingConnections(){
         if(sockets!=null) {
